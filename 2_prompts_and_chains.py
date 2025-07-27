@@ -1,10 +1,10 @@
 """
-LangChain Prompt Templates ve Chains
-Bu dosya LangChain'in prompt yönetimi ve zincir (chain) özelliklerini gösterir:
-- Prompt template'leri nasıl oluşturulur
-- Dinamik prompt'lar nasıl yapılır
-- Chain'ler nasıl kullanılır
-- Sequential chain'ler nasıl oluşturulur
+LangChain Prompt Templates and Chains
+This file demonstrates LangChain's prompt management and chain features:
+- How to create prompt templates
+- How to make dynamic prompts
+- How to use chains
+- How to create sequential chains
 """
 
 import os
@@ -18,26 +18,26 @@ load_dotenv()
 
 class CommaSeparatedListOutputParser(BaseOutputParser):
     """
-    Özel output parser örneği
-    LLM'den gelen cevabı virgülle ayrılmış liste olarak parse eder
+    Custom output parser example
+    Parses the response from LLM as a comma-separated list
     """
     
     def parse(self, text: str):
-        """Metni virgülle ayrılmış listeye çevir"""
+        """Convert text to comma-separated list"""
         return text.strip().split(", ")
 
 def basic_prompt_template():
     """
-    Temel prompt template kullanımı
-    Değişkenli prompt'lar oluşturma
+    Basic prompt template usage
+    Creating prompts with variables
     """
-    print("=== TEMEL PROMPT TEMPLATE ===")
+    print("=== BASIC PROMPT TEMPLATE ===")
     
-    # Basit prompt template oluştur
+    # Create simple prompt template
     template = """
-    Sen bir {role} uzmanısın.
-    {topic} hakkında {style} bir açıklama yap.
-    Açıklama maksimum {max_words} kelime olsun.
+    You are a {role} expert.
+    Make a {style} explanation about {topic}.
+    The explanation should be maximum {max_words} words.
     """
     
     prompt = PromptTemplate(
@@ -45,9 +45,9 @@ def basic_prompt_template():
         template=template
     )
     
-    # Template'i farklı değerlerle kullan
+    # Use template with different values
     formatted_prompt = prompt.format(
-        role="yazılım geliştirici",
+        role="software developer",
         topic="Python programlama",
         style="basit ve anlaşılır",
         max_words="100"

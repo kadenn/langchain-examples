@@ -1,216 +1,216 @@
-# LangChain Kapsamlı Öğrenme Projesi
+# LangChain Comprehensive Learning Project
 
-Bu proje, LangChain kütüphanesinin tüm temel özelliklerini öğrenmek için oluşturulmuş kapsamlı bir eğitim setidir. Her modül, LangChain'in farklı bir yönünü detaylı açıklamalarla birlikte gösterir.
+This project is a comprehensive training set created to learn all the basic features of the LangChain library. Each module demonstrates a different aspect of LangChain with detailed explanations.
 
-## 📚 Proje İçeriği
+## 📚 Project Contents
 
-### 1. Temel LLM Kullanımı (`1_basic_llm.py`)
-- LLM modelleriyle temel etkileşim
-- Farklı model türleri (GPT-3.5, GPT-4)
-- Mesaj tabanlı chat sistemi
-- Streaming (akış) örnekleri
-- Model karşılaştırmaları
+### 1. Basic LLM Usage (`1_basic_llm.py`)
+- Basic interaction with LLM models
+- Different model types (GPT-3.5, GPT-4)
+- Message-based chat system
+- Streaming examples
+- Model comparisons
 
-### 2. Prompt Templates ve Chains (`2_prompts_and_chains.py`)
-- Dinamik prompt template'leri
-- Chat prompt template'leri
+### 2. Prompt Templates and Chains (`2_prompts_and_chains.py`)
+- Dynamic prompt templates
+- Chat prompt templates
 - Few-shot prompting
-- LLM Chain kullanımı
-- Sequential ve Simple Sequential Chains
-- Özel output parser'lar
+- LLM Chain usage
+- Sequential and Simple Sequential Chains
+- Custom output parsers
 
 ### 3. Memory Management (`3_memory_management.py`)
 - Conversation Buffer Memory
 - Conversation Summary Memory
 - Token Buffer Memory
 - Window Memory
-- Özel hafıza yönetimi teknikleri
+- Custom memory management techniques
 
 ### 4. Document Loading (`4_document_loading.py`)
-- Text dosyası yükleme
-- PDF ve web sayfası yükleme
-- Dizin bazlı yükleme
-- Text splitting (karakter, recursive, token bazlı)
-- Belge özetleme
+- Text file loading
+- PDF and web page loading
+- Directory-based loading
+- Text splitting (character, recursive, token-based)
+- Document summarization
 
-### 5. Vector Stores ve Embeddings (`5_vector_stores_embeddings.py`)
-- OpenAI Embeddings kullanımı
-- Chroma ve FAISS vector store'ları
-- Semantic search (anlamsal arama)
+### 5. Vector Stores and Embeddings (`5_vector_stores_embeddings.py`)
+- OpenAI Embeddings usage
+- Chroma and FAISS vector stores
+- Semantic search
 - Similarity search
 - Retrieval QA
-- Filtreleme ve metadata kullanımı
+- Filtering and metadata usage
 
-### 6. Agents ve Tools (`6_agents_and_tools.py`)
-- Özel araçlar (tools) oluşturma
-- ReAct agent kullanımı
+### 6. Agents and Tools (`6_agents_and_tools.py`)
+- Creating custom tools
+- ReAct agent usage
 - Conversational agent
 - Multi-step problem solving
-- Özel hesaplama araçları
+- Custom calculation tools
 
-### 7. RAG Sistemi (`7_rag_system.py`)
+### 7. RAG System (`7_rag_system.py`)
 - Retrieval Augmented Generation
-- Kapsamlı bilgi tabanı oluşturma
-- Özel prompt'larla gelişmiş RAG
+- Comprehensive knowledge base creation
+- Advanced RAG with custom prompts
 - Conversational RAG
 - Multi-document RAG
-- Kaynak atıfı ile RAG
+- RAG with source attribution
 
-## 🚀 Kurulum
+## 🚀 Installation
 
-### 1. Gereksinimler
+### 1. Requirements
 ```bash
-# Projeyi klonlayın
+# Clone the project
 git clone <repo-url>
 cd langchain
 
-# Sanal ortam oluşturun (önerilen)
+# Create virtual environment (recommended)
 python -m venv venv
 source venv/bin/activate  # Linux/Mac
-# veya
+# or
 venv\\Scripts\\activate    # Windows
 
-# Gerekli kütüphaneleri yükleyin
+# Install required libraries
 pip install -r requirements.txt
 ```
 
-### 2. API Anahtarı Yapılandırması
+### 2. API Key Configuration
 ```bash
-# .env.example dosyasını .env olarak kopyalayın
+# Copy .env.example file as .env
 cp .env.example .env
 
-# .env dosyasını düzenleyip OpenAI API anahtarınızı ekleyin
+# Edit .env file and add your OpenAI API key
 OPENAI_API_KEY=your_openai_api_key_here
 ```
 
-## 💻 Kullanım
+## 💻 Usage
 
-### Etkileşimli Mod (Önerilen)
+### Interactive Mode (Recommended)
 ```bash
 python main_demo.py
 ```
-Bu komut menü sistemi ile tüm modülleri seçerek çalıştırmanızı sağlar.
+This command allows you to select and run all modules through a menu system.
 
-### Tüm Modülleri Çalıştırma
+### Run All Modules
 ```bash
 python main_demo.py all
 ```
 
-### Tek Modül Çalıştırma
+### Run Single Module
 ```bash
-python main_demo.py 1    # Temel LLM
+python main_demo.py 1    # Basic LLM
 python main_demo.py 2    # Prompt Templates
 python main_demo.py 3    # Memory Management
-# ... vb
+# ... etc
 ```
 
-### Yardım
+### Help
 ```bash
 python main_demo.py help
 ```
 
-### Manuel Çalıştırma
-Her modülü ayrı ayrı da çalıştırabilirsiniz:
+### Manual Execution
+You can also run each module separately:
 ```bash
 python 1_basic_llm.py
 python 2_prompts_and_chains.py
-# ... vb
+# ... etc
 ```
 
-## 📖 Öğrenme Rehberi
+## 📖 Learning Guide
 
-### Başlangıç Seviyesi
-1. `1_basic_llm.py` - LLM'lerle tanışın
-2. `2_prompts_and_chains.py` - Prompt yazma sanatını öğrenin
-3. `4_document_loading.py` - Belge işlemeyi keşfedin
+### Beginner Level
+1. `1_basic_llm.py` - Get familiar with LLMs
+2. `2_prompts_and_chains.py` - Learn the art of prompt writing
+3. `4_document_loading.py` - Discover document processing
 
-### Orta Seviye
-4. `3_memory_management.py` - Hafıza yönetimini anlayın
-5. `5_vector_stores_embeddings.py` - Anlamsal aramayı keşfedin
+### Intermediate Level
+4. `3_memory_management.py` - Understand memory management
+5. `5_vector_stores_embeddings.py` - Explore semantic search
 
-### İleri Seviye
-6. `6_agents_and_tools.py` - Akıllı aracılar oluşturun
-7. `7_rag_system.py` - Gelişmiş RAG sistemleri yapın
+### Advanced Level
+6. `6_agents_and_tools.py` - Create intelligent agents
+7. `7_rag_system.py` - Build advanced RAG systems
 
-## 🔍 Özellikler
+## 🔍 Features
 
-### ✅ Kapsamlı Açıklamalar
-- Her kod satırı için Türkçe açıklamalar
-- Kavramsal açıklamalar ve örnekler
-- Best practice'ler ve ipuçları
+### ✅ Comprehensive Explanations
+- English explanations for every line of code
+- Conceptual explanations and examples
+- Best practices and tips
 
-### ✅ Pratik Örnekler
-- Gerçek dünya senaryoları
-- Interaktif kod örnekleri
-- Hata yönetimi ve edge case'ler
+### ✅ Practical Examples
+- Real-world scenarios
+- Interactive code examples
+- Error handling and edge cases
 
-### ✅ Modüler Yapı
-- Her konu ayrı modülde
-- Bağımsız çalışabilen örnekler
-- Progressif öğrenme yapısı
+### ✅ Modular Structure
+- Each topic in separate modules
+- Examples that can work independently
+- Progressive learning structure
 
-### ✅ Hata Yönetimi
-- Detaylı hata mesajları
-- Çözüm önerileri
+### ✅ Error Management
+- Detailed error messages
+- Solution suggestions
 - Graceful error handling
 
-## 🛠️ Teknoloji Stack'i
+## 🛠️ Technology Stack
 
-- **LangChain**: Ana framework
-- **OpenAI**: LLM sağlayıcısı
-- **Chroma**: Vector veritabanı
-- **FAISS**: Alternatif vector store
-- **Python-dotenv**: Environment yönetimi
+- **LangChain**: Main framework
+- **OpenAI**: LLM provider
+- **Chroma**: Vector database
+- **FAISS**: Alternative vector store
+- **Python-dotenv**: Environment management
 
-## 📋 Gereksinimler
+## 📋 Requirements
 
 - Python 3.8+
-- OpenAI API anahtarı
-- İnternet bağlantısı
-- 2GB+ RAM (vector işlemleri için)
+- OpenAI API key
+- Internet connection
+- 2GB+ RAM (for vector operations)
 
-## 🔧 Sorun Giderme
+## 🔧 Troubleshooting
 
-### API Hatası
+### API Error
 ```
-❌ OPENAI_API_KEY environment variable bulunamadı!
+❌ OPENAI_API_KEY environment variable not found!
 ```
-**Çözüm**: `.env` dosyasını oluşturun ve API anahtarınızı ekleyin.
+**Solution**: Create `.env` file and add your API key.
 
-### Import Hatası
+### Import Error
 ```
-❌ Eksik kütüphaneler: langchain
+❌ Missing libraries: langchain
 ```
-**Çözüm**: `pip install -r requirements.txt` komutunu çalıştırın.
+**Solution**: Run `pip install -r requirements.txt` command.
 
-### Memory Hatası
-**Çözüm**: Daha küçük chunk_size değerleri kullanın.
+### Memory Error
+**Solution**: Use smaller chunk_size values.
 
-## 📚 Ek Kaynaklar
+## 📚 Additional Resources
 
-- [LangChain Resmi Dökümantasyonu](https://docs.langchain.com/)
-- [OpenAI API Referansı](https://platform.openai.com/docs)
-- [Vector Database Rehberi](https://www.pinecone.io/learn/vector-database/)
+- [LangChain Official Documentation](https://docs.langchain.com/)
+- [OpenAI API Reference](https://platform.openai.com/docs)
+- [Vector Database Guide](https://www.pinecone.io/learn/vector-database/)
 
-## 🤝 Katkıda Bulunma
+## 🤝 Contributing
 
-Bu proje eğitim amaçlıdır. Geliştirmeler için:
+This project is for educational purposes. For improvements:
 
-1. Fork yapın
-2. Feature branch oluşturun
-3. Değişikliklerinizi commit edin
-4. Pull request gönderin
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Send a pull request
 
-## 📄 Lisans
+## 📄 License
 
-Bu proje MIT lisansı altında yayınlanmıştır.
+This project is published under the MIT license.
 
-## 🙏 Teşekkürler
+## 🙏 Acknowledgments
 
-- LangChain geliştirici ekibine
-- OpenAI'ya güçlü API'leri için
-- Açık kaynak topluluğuna
+- To the LangChain development team
+- To OpenAI for their powerful APIs
+- To the open source community
 
 ---
 
-**İyi öğrenmeler! 🚀**
+**Happy learning! 🚀**
