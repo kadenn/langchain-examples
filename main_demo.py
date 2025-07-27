@@ -1,7 +1,7 @@
 """
-LangChain Kapsamlı Demo Script
-Bu ana script tüm LangChain özelliklerini sırayla çalıştırır ve menü sistemi sağlar.
-Kullanıcı istediği modülü seçerek çalıştırabilir.
+LangChain Comprehensive Demo Script
+This main script runs all LangChain features sequentially and provides a menu system.
+Users can select and run the desired module.
 """
 
 import os
@@ -12,15 +12,15 @@ from dotenv import load_dotenv
 try:
     import importlib.util
     
-    # Modül dosyalarını kontrol et
+    # Module files check
     modules = {
-        "1": ("Temel LLM Kullanımı", "1_basic_llm.py"),
-        "2": ("Prompt Templates ve Chains", "2_prompts_and_chains.py"),
+        "1": ("Basic LLM Usage", "1_basic_llm.py"),
+        "2": ("Prompt Templates and Chains", "2_prompts_and_chains.py"),
         "3": ("Memory Management", "3_memory_management.py"),
         "4": ("Document Loading", "4_document_loading.py"),
-        "5": ("Vector Stores ve Embeddings", "5_vector_stores_embeddings.py"),
-        "6": ("Agents ve Tools", "6_agents_and_tools.py"),
-        "7": ("RAG Sistemi", "7_rag_system.py")
+        "5": ("Vector Stores and Embeddings", "5_vector_stores_embeddings.py"),
+        "6": ("Agents and Tools", "6_agents_and_tools.py"),
+        "7": ("RAG System", "7_rag_system.py")
     }
     
 except ImportError as e:
