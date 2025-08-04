@@ -1,8 +1,8 @@
 """
-LangChain RAG (Retrieval Augmented Generation) Sistemi
-Bu dosya LangChain'in RAG özelliklerini kapsamlı şekilde gösterir:
-- Document loading ve preprocessing
-- Vector store oluşturma
+LangChain RAG (Retrieval Augmented Generation) System
+This file comprehensively demonstrates LangChain's RAG features:
+- Document loading and preprocessing
+- Vector store creation
 - Retrieval-based QA
 - Advanced RAG techniques
 - Multi-document RAG
@@ -27,144 +27,144 @@ load_dotenv()
 
 def create_comprehensive_knowledge_base():
     """
-    Kapsamlı bilgi tabanı oluştur
-    Farklı konularda detaylı belgeler
+    Create comprehensive knowledge base
+    Detailed documents on various topics
     """
-    print("=== KAPSAMLI BİLGİ TABANI OLUŞTURULUYOR ===")
+    print("=== CREATING COMPREHENSIVE KNOWLEDGE BASE ===")
     
-    # Çeşitli teknoloji konularında detaylı belgeler
+    # Detailed documents on various technology topics
     knowledge_docs = [
         {
-            "title": "Python Web Framework'leri",
+            "title": "Python Web Frameworks",
             "content": """
-            Python Web Framework'leri
+            Python Web Frameworks
             
             Django:
-            Django, Python tabanlı ücretsiz ve açık kaynak web framework'üdür. Model-View-Template (MVT) mimarisini kullanır.
+            Django is a free and open-source web framework based on Python. It uses the Model-View-Template (MVT) architecture.
             
-            Django Özellikleri:
-            - ORM (Object-Relational Mapping) sistemi
-            - Admin paneli otomatik oluşturma
-            - URL routing sistemi
-            - Template sistemi
-            - Güvenlik özellikleri (CSRF, XSS koruması)
-            - İnternasyonalizasyon desteği
+            Django Features:
+            - ORM (Object-Relational Mapping) system
+            - Automatic admin panel generation
+            - URL routing system
+            - Template system
+            - Security features (CSRF, XSS protection)
+            - Internationalization support
             
-            Django Kullanım Alanları:
-            - E-ticaret siteleri
-            - İçerik yönetim sistemleri
-            - Sosyal medya platformları
-            - Kurumsal web uygulamaları
+            Django Use Cases:
+            - E-commerce websites
+            - Content management systems
+            - Social media platforms
+            - Enterprise web applications
             
             Flask:
-            Flask, Python için minimalist web framework'üdür. Micro-framework olarak bilinir.
+            Flask is a minimalist web framework for Python. It's known as a micro-framework.
             
-            Flask Özellikleri:
-            - Basit ve öğrenmesi kolay
-            - Esnek yapı
-            - Werkzeug WSGI toolkit kullanır
+            Flask Features:
+            - Simple and easy to learn
+            - Flexible structure
+            - Uses Werkzeug WSGI toolkit
             - Jinja2 template engine
-            - Blueprint desteği
-            - Extension sistemi
+            - Blueprint support
+            - Extension system
             
             Flask vs Django:
-            - Django daha kapsamlı, Flask daha esnek
-            - Django büyük projeler için, Flask küçük-orta projeler için ideal
-            - Django daha fazla built-in özellik sunar
+            - Django is more comprehensive, Flask is more flexible
+            - Django is ideal for large projects, Flask for small-medium projects
+            - Django offers more built-in features
             """,
             "category": "web_development",
             "language": "python",
             "difficulty": "intermediate"
         },
         {
-            "title": "Makine Öğrenmesi Algoritmaları",
+            "title": "Machine Learning Algorithms",
             "content": """
-            Makine Öğrenmesi Algoritmaları
+            Machine Learning Algorithms
             
-            Supervised Learning (Gözetimli Öğrenme):
+            Supervised Learning:
             
-            1. Linear Regression (Doğrusal Regresyon):
-            - Sürekli değerleri tahmin etmek için kullanılır
-            - Bağımlı ve bağımsız değişkenler arasında doğrusal ilişki arar
-            - Mean Squared Error (MSE) ile değerlendirilir
-            - Overfitting'e eğilimli değildir
+            1. Linear Regression:
+            - Used to predict continuous values
+            - Looks for linear relationships between dependent and independent variables
+            - Evaluated with Mean Squared Error (MSE)
+            - Not prone to overfitting
             
-            2. Logistic Regression (Lojistik Regresyon):
-            - Binary ve multiclass classification için kullanılır
-            - Sigmoid fonksiyonu kullanır
-            - Probability değerleri döndürür
-            - Linear separable veri için idealdir
+            2. Logistic Regression:
+            - Used for binary and multiclass classification
+            - Uses sigmoid function
+            - Returns probability values
+            - Ideal for linearly separable data
             
-            3. Decision Trees (Karar Ağaçları):
-            - Hem regression hem classification için kullanılır
-            - Interpret edilmesi kolaydır
-            - Feature importance sağlar
-            - Overfitting'e eğilimlidir
+            3. Decision Trees:
+            - Used for both regression and classification
+            - Easy to interpret
+            - Provides feature importance
+            - Prone to overfitting
             
             4. Random Forest:
-            - Multiple decision tree'lerin ensemble'ı
-            - Overfitting'i azaltır
-            - Feature importance sağlar
-            - Robust ve accurate sonuçlar verir
+            - Ensemble of multiple decision trees
+            - Reduces overfitting
+            - Provides feature importance
+            - Gives robust and accurate results
             
             5. Support Vector Machines (SVM):
-            - Classification ve regression için kullanılır
-            - Kernel trick ile non-linear problems çözebilir
-            - High-dimensional data için iyidir
-            - Outlier'lara duyarlıdır
+            - Used for classification and regression
+            - Can solve non-linear problems with kernel trick
+            - Good for high-dimensional data
+            - Sensitive to outliers
             
-            Unsupervised Learning (Gözetimsiz Öğrenme):
+            Unsupervised Learning:
             
             1. K-Means Clustering:
-            - Veriyi K adet cluster'a böler
-            - Centroid tabanlı clustering
-            - Spherical cluster'lar için iyidir
-            - K değeri önceden belirlenmeli
+            - Divides data into K clusters
+            - Centroid-based clustering
+            - Good for spherical clusters
+            - K value must be predetermined
             
             2. Hierarchical Clustering:
-            - Tree-like cluster yapısı oluşturur
-            - Agglomerative ve divisive türleri var
-            - Dendrogram ile görselleştirilebilir
-            - K değeri önceden belirlenmez
+            - Creates tree-like cluster structure
+            - Has agglomerative and divisive types
+            - Can be visualized with dendrograms
+            - K value is not predetermined
             
             3. DBSCAN:
             - Density-based clustering
-            - Arbitrary şekilli cluster'ları bulabilir
-            - Outlier detection yapabilir
-            - Noise'a robust'tur
+            - Can find arbitrarily shaped clusters
+            - Can perform outlier detection
+            - Robust to noise
             """,
             "category": "machine_learning",
             "language": "general",
             "difficulty": "advanced"
         },
         {
-            "title": "React.js ve Modern Frontend",
+            "title": "React.js and Modern Frontend",
             "content": """
-            React.js ve Modern Frontend Geliştirme
+            React.js and Modern Frontend Development
             
-            React.js Temelleri:
-            React, Facebook tarafından geliştirilen JavaScript library'sidir. Component-based yapısı ile UI geliştirme sağlar.
+            React.js Fundamentals:
+            React is a JavaScript library developed by Facebook. It provides UI development with a component-based structure.
             
-            React Temel Kavramları:
+            React Core Concepts:
             
             1. Components:
-            - Functional components (modern yaklaşım)
+            - Functional components (modern approach)
             - Class components (legacy)
-            - Props ile veri aktarımı
-            - State yönetimi
+            - Data transfer with props
+            - State management
             
             2. JSX (JavaScript Extension):
-            - HTML benzeri syntax
-            - JavaScript expressions kullanımı
+            - HTML-like syntax
+            - JavaScript expressions usage
             - Component rendering
             
             3. Virtual DOM:
-            - Real DOM'un memory'deki representation'ı
-            - Performans optimizasyonu sağlar
-            - Diffing algorithm ile güncellemeler
+            - Memory representation of real DOM
+            - Provides performance optimization
+            - Updates through diffing algorithm
             
             4. Hooks:
-            - useState: state yönetimi
+            - useState: state management
             - useEffect: side effects
             - useContext: context API
             - useReducer: complex state logic
@@ -207,61 +207,61 @@ def create_comprehensive_knowledge_base():
             "difficulty": "intermediate"
         },
         {
-            "title": "Veri Tabanı Yönetimi ve SQL",
+            "title": "Database Management and SQL",
             "content": """
-            Veri Tabanı Yönetimi ve SQL
+            Database Management and SQL
             
-            İlişkisel Veri Tabanları:
+            Relational Databases:
             
-            Temel Kavramlar:
-            - Table (Tablo): Veri saklama yapısı
-            - Row (Satır): Tek bir kayıt
-            - Column (Sütun): Veri alanı
-            - Primary Key: Benzersiz tanımlayıcı
-            - Foreign Key: İlişki kurucu anahtar
-            - Index: Performans artırıcı yapı
+            Basic Concepts:
+            - Table: Data storage structure
+            - Row: Single record
+            - Column: Data field
+            - Primary Key: Unique identifier
+            - Foreign Key: Relationship key
+            - Index: Performance enhancing structure
             
-            SQL Komutları:
+            SQL Commands:
             
             1. DDL (Data Definition Language):
-            - CREATE: Tablo/veritabanı oluşturma
-            - ALTER: Yapı değiştirme
-            - DROP: Silme
-            - TRUNCATE: Veri temizleme
+            - CREATE: Create table/database
+            - ALTER: Modify structure
+            - DROP: Delete
+            - TRUNCATE: Clear data
             
             2. DML (Data Manipulation Language):
-            - SELECT: Veri sorgulama
-            - INSERT: Veri ekleme
-            - UPDATE: Veri güncelleme
-            - DELETE: Veri silme
+            - SELECT: Query data
+            - INSERT: Add data
+            - UPDATE: Modify data
+            - DELETE: Remove data
             
             3. DCL (Data Control Language):
-            - GRANT: Yetki verme
-            - REVOKE: Yetki alma
+            - GRANT: Give permissions
+            - REVOKE: Remove permissions
             
-            Advanced SQL Konuları:
+            Advanced SQL Topics:
             
             1. Joins:
-            - INNER JOIN: Eşleşen kayıtlar
-            - LEFT JOIN: Sol tablodaki tüm kayıtlar
-            - RIGHT JOIN: Sağ tablodaki tüm kayıtlar
-            - FULL OUTER JOIN: Tüm kayıtlar
+            - INNER JOIN: Matching records
+            - LEFT JOIN: All records from left table
+            - RIGHT JOIN: All records from right table
+            - FULL OUTER JOIN: All records
             
             2. Aggregate Functions:
-            - COUNT(): Sayma
-            - SUM(): Toplama
-            - AVG(): Ortalama
+            - COUNT(): Counting
+            - SUM(): Addition
+            - AVG(): Average
             - MIN()/MAX(): Minimum/Maximum
-            - GROUP BY: Gruplama
-            - HAVING: Gruplar için filtreleme
+            - GROUP BY: Grouping
+            - HAVING: Filtering for groups
             
             3. Window Functions:
-            - ROW_NUMBER(): Satır numarası
-            - RANK()/DENSE_RANK(): Sıralama
-            - LAG()/LEAD(): Önceki/sonraki değer
-            - PARTITION BY: Bölümleme
+            - ROW_NUMBER(): Row number
+            - RANK()/DENSE_RANK(): Ranking
+            - LAG()/LEAD(): Previous/next value
+            - PARTITION BY: Partitioning
             
-            NoSQL Veri Tabanları:
+            NoSQL Databases:
             
             1. Document Databases:
             - MongoDB: JSON-like documents
@@ -278,9 +278,9 @@ def create_comprehensive_knowledge_base():
             - Amazon Neptune
             - ArangoDB: Multi-model
             
-            Veri Tabanı Tasarımı:
-            - Normalization: Veri tekrarını azaltma
-            - Denormalization: Performans optimizasyonu
+            Database Design:
+            - Normalization: Reduce data redundancy
+            - Denormalization: Performance optimization
             - Entity-Relationship Diagrams
             - ACID properties: Atomicity, Consistency, Isolation, Durability
             """,
@@ -289,11 +289,11 @@ def create_comprehensive_knowledge_base():
             "difficulty": "intermediate"
         },
         {
-            "title": "Cloud Computing ve DevOps",
+            "title": "Cloud Computing and DevOps",
             "content": """
-            Cloud Computing ve DevOps
+            Cloud Computing and DevOps
             
-            Cloud Computing Modelleri:
+            Cloud Computing Models:
             
             1. Service Models:
             - IaaS (Infrastructure as a Service): AWS EC2, Google Compute Engine
@@ -349,7 +349,7 @@ def create_comprehensive_knowledge_base():
             - Docker Compose: Multi-container applications
             - Container registries: Docker Hub, ECR, GCR
             
-            4. Monitoring ve Logging:
+            4. Monitoring and Logging:
             - Prometheus: Monitoring system
             - Grafana: Metrics visualization
             - ELK Stack (Elasticsearch, Logstash, Kibana)
@@ -369,7 +369,7 @@ def create_comprehensive_knowledge_base():
         }
     ]
     
-    # Document objelerini oluştur
+    # Create Document objects
     documents = []
     for doc_data in knowledge_docs:
         doc = Document(
@@ -383,21 +383,21 @@ def create_comprehensive_knowledge_base():
         )
         documents.append(doc)
     
-    print(f"✅ {len(documents)} kapsamlı belge oluşturuldu")
+    print(f"✅ {len(documents)} comprehensive documents created")
     return documents
 
 def basic_rag_example():
     """
-    Temel RAG sistemi örneği
+    Basic RAG system example
     """
-    print("\n=== TEMEL RAG SİSTEMİ ===")
+    print("\n=== BASIC RAG SYSTEM ===")
     
-    # Belgeler ve LLM'i oluştur
+    # Create documents and LLM
     documents = create_comprehensive_knowledge_base()
     llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.3)
     embeddings = OpenAIEmbeddings()
     
-    # Text splitter ile belgeleri böl
+    # Split documents with text splitter
     text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=1000,
         chunk_overlap=200,
@@ -405,15 +405,15 @@ def basic_rag_example():
     )
     split_docs = text_splitter.split_documents(documents)
     
-    print(f"Toplam belge parçası: {len(split_docs)}")
+    print(f"Total document chunks: {len(split_docs)}")
     
-    # Vector store oluştur
+    # Create vector store
     vectorstore = Chroma.from_documents(
         documents=split_docs,
         embedding=embeddings
     )
     
-    # RAG chain oluştur
+    # Create RAG chain
     qa_chain = RetrievalQA.from_chain_type(
         llm=llm,
         chain_type="stuff",
@@ -422,43 +422,43 @@ def basic_rag_example():
         return_source_documents=True
     )
     
-    # Test soruları
+    # Test questions
     rag_questions = [
-        "Django ve Flask arasındaki temel farklar nelerdir?",
-        "Makine öğrenmesinde supervised learning algoritmaları nelerdir?",
-        "React'ta hooks nedir ve neden kullanılır?",
-        "SQL'de JOIN türleri nelerdir ve nasıl kullanılır?",
-        "Cloud computing'de IaaS, PaaS ve SaaS arasındaki farklar nedir?"
+        "What are the main differences between Django and Flask?",
+        "What are supervised learning algorithms in machine learning?",
+        "What are hooks in React and why are they used?",
+        "What are the JOIN types in SQL and how are they used?",
+        "What are the differences between IaaS, PaaS and SaaS in cloud computing?"
     ]
     
     for question in rag_questions:
         print(f"\n{'='*60}")
-        print(f"SORU: {question}")
+        print(f"QUESTION: {question}")
         print('='*60)
         
         try:
             result = qa_chain({"query": question})
             
-            print(f"\nCEVAP:")
+            print(f"\nANSWER:")
             print(result['result'])
             
-            print(f"\nKULLANILAN KAYNAKLAR:")
+            print(f"\nSOURCES USED:")
             for i, doc in enumerate(result['source_documents'], 1):
-                print(f"\nKaynak {i}:")
-                print(f"Başlık: {doc.metadata.get('title', 'N/A')}")
-                print(f"Kategori: {doc.metadata.get('category', 'N/A')}")
-                print(f"İçerik özeti: {doc.page_content[:150]}...")
+                print(f"\nSource {i}:")
+                print(f"Title: {doc.metadata.get('title', 'N/A')}")
+                print(f"Category: {doc.metadata.get('category', 'N/A')}")
+                print(f"Content summary: {doc.page_content[:150]}...")
                 
         except Exception as e:
-            print(f"Hata: {e}")
+            print(f"Error: {e}")
 
 def advanced_rag_with_custom_prompt():
     """
-    Özel prompt ile gelişmiş RAG
+    Advanced RAG with custom prompt
     """
-    print("\n=== ÖZEL PROMPT İLE GELİŞMİŞ RAG ===")
+    print("\n=== ADVANCED RAG WITH CUSTOM PROMPT ===")
     
-    # Belgeler ve vector store oluştur
+    # Create documents and vector store
     documents = create_comprehensive_knowledge_base()
     embeddings = OpenAIEmbeddings()
     
@@ -469,25 +469,25 @@ def advanced_rag_with_custom_prompt():
     split_docs = text_splitter.split_documents(documents)
     vectorstore = Chroma.from_documents(split_docs, embeddings)
     
-    # Özel prompt template
+    # Custom prompt template
     custom_prompt = PromptTemplate(
-        template="""Sen bir teknoloji uzmanısın. Aşağıdaki bağlam bilgilerini kullanarak soruyu yanıtla.
-Eğer bağlam bilgilerinde cevap yoksa, "Bu bilgi mevcut kaynaklarda bulunmuyor" de.
-Her zaman Türkçe yanıt ver ve teknik terimleri açıkla.
+        template="""You are a technology expert. Answer the question using the context information below.
+If the answer is not in the context information, say "This information is not available in the provided sources".
+Always respond in English and explain technical terms.
 
-Bağlam Bilgileri:
+Context Information:
 {context}
 
-Soru: {question}
+Question: {question}
 
-Detaylı Yanıt:""",
+Detailed Answer:""",
         input_variables=["context", "question"]
     )
     
-    # LLM oluştur
+    # Create LLM
     llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.2)
     
-    # Custom chain oluştur
+    # Create custom chain
     qa_chain = load_qa_chain(
         llm=llm,
         chain_type="stuff",
@@ -495,43 +495,43 @@ Detaylı Yanıt:""",
         verbose=True
     )
     
-    # Gelişmiş sorular
+    # Advanced questions
     advanced_questions = [
-        "React'ta functional component'lerde state yönetimi nasıl yapılır ve class component'lerden farkı nedir?",
-        "Makine öğrenmesinde overfitting nedir ve nasıl önlenir?",
-        "SQL'de window function'lar nedir ve aggregate function'lardan farkı nedir?",
-        "DevOps'ta CI/CD pipeline'ı nasıl kurulur ve faydaları nelerdir?"
+        "How is state management done in React functional components and what is the difference from class components?",
+        "What is overfitting in machine learning and how is it prevented?",
+        "What are window functions in SQL and what is the difference from aggregate functions?",
+        "How is a CI/CD pipeline set up in DevOps and what are its benefits?"
     ]
     
     for question in advanced_questions:
         print(f"\n{'='*60}")
-        print(f"GELİŞMİŞ SORU: {question}")
+        print(f"ADVANCED QUESTION: {question}")
         print('='*60)
         
         try:
-            # İlgili belgeleri getir
+            # Retrieve relevant documents
             relevant_docs = vectorstore.similarity_search(question, k=4)
             
-            # Custom chain ile yanıtla
+            # Answer with custom chain
             response = qa_chain.run(
                 input_documents=relevant_docs,
                 question=question
             )
             
-            print(f"\nDETAYLI YANIT:")
+            print(f"\nDETAILED ANSWER:")
             print(response)
             
         except Exception as e:
-            print(f"Hata: {e}")
+            print(f"Error: {e}")
 
 def conversational_rag_example():
     """
-    Konuşmalı RAG sistemi
-    Geçmiş konuşmayı hatırlayarak RAG
+    Conversational RAG system
+    RAG that remembers previous conversation
     """
-    print("\n=== KONUŞMALI RAG SİSTEMİ ===")
+    print("\n=== CONVERSATIONAL RAG SYSTEM ===")
     
-    # Belgeler ve vector store oluştur
+    # Create documents and vector store
     documents = create_comprehensive_knowledge_base()
     embeddings = OpenAIEmbeddings()
     
@@ -542,17 +542,17 @@ def conversational_rag_example():
     split_docs = text_splitter.split_documents(documents)
     vectorstore = Chroma.from_documents(split_docs, embeddings)
     
-    # Memory oluştur
+    # Create memory
     memory = ConversationBufferMemory(
         memory_key="chat_history",
         return_messages=True,
         output_key="answer"
     )
     
-    # LLM oluştur
+    # Create LLM
     llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.3)
     
-    # Conversational RAG chain oluştur
+    # Create conversational RAG chain
     conv_chain = ConversationalRetrievalChain.from_llm(
         llm=llm,
         retriever=vectorstore.as_retriever(search_kwargs={"k": 3}),
@@ -561,43 +561,43 @@ def conversational_rag_example():
         return_source_documents=True
     )
     
-    # Konuşma akışı simülasyonu
+    # Conversation flow simulation
     conversation_flow = [
-        "Python web geliştirme için hangi framework'leri önerirsin?",
-        "Bunlardan hangisi yeni başlayanlar için daha uygun?",
-        "Flask ile basit bir web uygulaması nasıl yapılır?",
-        "Django'ya geçiş yapmak istesem neye dikkat etmeliyim?",
-        "Az önce bahsettiğin Flask'ın avantajları nelerdi?",
-        "Web geliştirmede makine öğrenmesi nasıl kullanılır?"
+        "Which frameworks do you recommend for Python web development?",
+        "Which of these is more suitable for beginners?",
+        "How do you create a simple web application with Flask?",
+        "What should I pay attention to if I want to switch to Django?",
+        "What were the advantages of Flask you mentioned earlier?",
+        "How is machine learning used in web development?"
     ]
     
     for i, question in enumerate(conversation_flow, 1):
         print(f"\n{'='*50}")
-        print(f"KONUŞMA ADIMI {i}: {question}")
+        print(f"CONVERSATION STEP {i}: {question}")
         print('='*50)
         
         try:
-            # Soruyu sor ve yanıtı al
+            # Ask question and get answer
             result = conv_chain({"question": question})
             
-            print(f"\nYANIT:")
+            print(f"\nANSWER:")
             print(result['answer'])
             
-            print(f"\nGEÇMİŞ KONUŞMA:")
-            for msg in memory.chat_memory.messages[-4:]:  # Son 2 soru-cevap çifti
+            print(f"\nCONVERSATION HISTORY:")
+            for msg in memory.chat_memory.messages[-4:]:  # Last 2 question-answer pairs
                 if hasattr(msg, 'content'):
                     print(f"{type(msg).__name__}: {msg.content[:100]}...")
                     
         except Exception as e:
-            print(f"Hata: {e}")
+            print(f"Error: {e}")
 
 def multi_document_rag_with_filtering():
     """
-    Çoklu belge RAG sistemi filtreleme ile
+    Multi-document RAG system with filtering
     """
-    print("\n=== FİLTRELEME İLE ÇOKLİ BELGE RAG ===")
+    print("\n=== MULTI-DOCUMENT RAG WITH FILTERING ===")
     
-    # Belgeler oluştur
+    # Create documents
     documents = create_comprehensive_knowledge_base()
     embeddings = OpenAIEmbeddings()
     
@@ -610,74 +610,74 @@ def multi_document_rag_with_filtering():
     
     llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.2)
     
-    # Farklı filtreler ve sorular
+    # Different filters and questions
     filtered_queries = [
         {
             "filter": {"category": "web_development"},
-            "question": "Modern web geliştirmede hangi teknolojiler kullanılır?",
-            "description": "Sadece web geliştirme belgeleri"
+            "question": "What technologies are used in modern web development?",
+            "description": "Only web development documents"
         },
         {
             "filter": {"difficulty": "advanced"},
-            "question": "İleri seviye teknolojiler hangileridir?",
-            "description": "Sadece ileri seviye belgeler"
+            "question": "What are the advanced level technologies?",
+            "description": "Only advanced level documents"
         },
         {
             "filter": {"language": "python"},
-            "question": "Python ile neler yapılabilir?",
-            "description": "Sadece Python ile ilgili belgeler"
+            "question": "What can be done with Python?",
+            "description": "Only Python related documents"
         },
         {
             "filter": {"category": "machine_learning"},
-            "question": "Makine öğrenmesi algoritmaları nasıl seçilir?", 
-            "description": "Sadece ML belgeleri"
+            "question": "How to choose machine learning algorithms?", 
+            "description": "Only ML documents"
         }
     ]
     
     for query_config in filtered_queries:
         print(f"\n{'='*60}")
-        print(f"FİLTRE: {query_config['description']}")
-        print(f"SORU: {query_config['question']}")
+        print(f"FILTER: {query_config['description']}")
+        print(f"QUESTION: {query_config['question']}")
         print('='*60)
         
         try:
-            # Filtrelenmiş belgeler getir
+            # Get filtered documents
             filtered_docs = vectorstore.similarity_search(
                 query_config['question'],
                 k=4,
                 filter=query_config['filter']
             )
             
-            print(f"Bulunan filtrelenmiş belge sayısı: {len(filtered_docs)}")
+            print(f"Number of filtered documents found: {len(filtered_docs)}")
             
             if filtered_docs:
-                # QA chain ile yanıtla
+                # Answer with QA chain
                 qa_chain = load_qa_chain(llm, chain_type="stuff")
                 response = qa_chain.run(
                     input_documents=filtered_docs,
                     question=query_config['question']
                 )
                 
-                print(f"\nFİLTRELENMİŞ YANIT:")
+                print(f"\nFILTERED ANSWER:")
                 print(response)
                 
-                print(f"\nKULLANILAN BELGELER:")
+                print(f"\nDOCUMENTS USED:")
                 for i, doc in enumerate(filtered_docs, 1):
                     print(f"{i}. {doc.metadata.get('title', 'N/A')} "
                           f"({doc.metadata.get('category', 'N/A')})")
             else:
-                print("Bu filtre ile eşleşen belge bulunamadı.")
+                print("No documents found matching this filter.")
                 
         except Exception as e:
-            print(f"Hata: {e}")
+            print(f"Error: {e}")
 
 def rag_with_source_citation():
     """
-    Kaynak atıfı ile RAG sistemi
+    RAG system with source citation
     """
-    print("\n=== KAYNAK ATIFI İLE RAG ===")
+    print("\n=== RAG WITH SOURCE CITATION ===")
     
-    # Belgeler ve vector store
+    # Documents and vector store
     documents = create_comprehensive_knowledge_base()
     embeddings = OpenAIEmbeddings()
     
@@ -688,43 +688,43 @@ def rag_with_source_citation():
     split_docs = text_splitter.split_documents(documents)
     vectorstore = Chroma.from_documents(split_docs, embeddings)
     
-    # Kaynak atıfı için özel prompt
+    # Custom prompt for source citation
     citation_prompt = PromptTemplate(
-        template="""Aşağıdaki bağlam bilgilerini kullanarak soruyu yanıtla.
-Yanıtında kullandığın her bilgi için kaynak belirtmeyi unutma.
-Kaynak format: [Belge Başlığı]
+        template="""Answer the question using the context information below.
+Don't forget to cite sources for each piece of information you use in your answer.
+Source format: [Document Title]
 
-Bağlam Bilgileri:
+Context Information:
 {context}
 
-Soru: {question}
+Question: {question}
 
-Kaynak atıflı yanıt:""",
+Answer with source citations:""",
         input_variables=["context", "question"]
     )
     
     llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.2)
     qa_chain = load_qa_chain(llm, chain_type="stuff", prompt=citation_prompt)
     
-    # Kaynak atıfı gerektiren sorular
+    # Questions requiring source citation
     citation_questions = [
-        "Web framework'leri karşılaştırır mısın?",
-        "Makine öğrenmesi algoritmalarının kullanım alanları neler?",
-        "Cloud computing servis modelleri nelerdir?"
+        "Can you compare web frameworks?",
+        "What are the use cases of machine learning algorithms?",
+        "What are the cloud computing service models?"
     ]
     
     for question in citation_questions:
         print(f"\n{'='*60}")
-        print(f"KAYNAK ATIFLI SORU: {question}")
+        print(f"QUESTION WITH CITATION: {question}")
         print('='*60)
         
         try:
             relevant_docs = vectorstore.similarity_search(question, k=4)
             
-            # Context'i kaynak bilgileri ile zenginleştir
+            # Enrich context with source information
             enriched_context = ""
             for i, doc in enumerate(relevant_docs, 1):
-                title = doc.metadata.get('title', f'Belge {i}')
+                title = doc.metadata.get('title', f'Document {i}')
                 enriched_context += f"\n--- {title} ---\n{doc.page_content}\n"
             
             response = qa_chain.run(
@@ -732,38 +732,38 @@ Kaynak atıflı yanıt:""",
                 question=question
             )
             
-            print(f"\nKAYNAK ATIFLI YANIT:")
+            print(f"\nANSWER WITH CITATIONS:")
             print(response)
             
-            print(f"\nMEVCUT KAYNAK BELGELER:")
+            print(f"\nAVAILABLE SOURCE DOCUMENTS:")
             for i, doc in enumerate(relevant_docs, 1):
                 print(f"{i}. {doc.metadata.get('title', 'N/A')}")
                 
         except Exception as e:
-            print(f"Hata: {e}")
+            print(f"Error: {e}")
 
 def main():
     """
-    Ana fonksiyon - tüm RAG örneklerini çalıştır
+    Main function - run all RAG examples
     """
-    print("LangChain RAG (Retrieval Augmented Generation) Örnekleri Başlıyor...\n")
+    print("LangChain RAG (Retrieval Augmented Generation) Examples Starting...\n")
     
     if not os.getenv("OPENAI_API_KEY"):
-        print("HATA: OPENAI_API_KEY environment variable bulunamadı!")
+        print("ERROR: OPENAI_API_KEY environment variable not found!")
         return
     
     try:
-        # RAG örneklerini çalıştır
+        # Run RAG examples
         basic_rag_example()
         advanced_rag_with_custom_prompt()
         conversational_rag_example()
         multi_document_rag_with_filtering()
         rag_with_source_citation()
         
-        print("\n✅ Tüm RAG örnekleri başarıyla tamamlandı!")
+        print("\n✅ All RAG examples completed successfully!")
         
     except Exception as e:
-        print(f"❌ Hata oluştu: {e}")
+        print(f"❌ Error occurred: {e}")
 
 if __name__ == "__main__":
     main()
