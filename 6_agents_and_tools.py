@@ -1,12 +1,12 @@
 """
-LangChain Agents ve Tools
-Bu dosya LangChain'in agent ve tool özelliklerini gösterir:
-- Özel araçlar (tools) oluşturma
-- Agent türleri ve kullanımları
-- Tool'ları birlikte kullanma
+LangChain Agents and Tools
+This file demonstrates LangChain's agent and tool features:
+- Creating custom tools
+- Agent types and usage
+- Using tools together
 - ReAct agent
 - Conversation agent
-- Agent ile çoklu adım problem çözme
+- Multi-step problem solving with agents
 """
 
 import os
@@ -24,46 +24,46 @@ from datetime import datetime
 
 load_dotenv()
 
-# Örnek özel araçlar oluşturalım
+# Let's create sample custom tools
 
 def calculator_tool(expression: str) -> str:
     """
-    Matematiksel hesaplama aracı
-    Basit matematiksel ifadeleri değerlendirir
+    Mathematical calculation tool
+    Evaluates simple mathematical expressions
     """
     try:
-        # Güvenlik için sadece temel operatörlere izin ver
+        # For security, only allow basic operators
         allowed_chars = set('0123456789+-*/.() ')
         if not all(c in allowed_chars for c in expression):
-            return "Hata: Sadece sayılar ve temel operatörler (+, -, *, /, (), .) kullanılabilir"
+            return "Error: Only numbers and basic operators (+, -, *, /, (), .) are allowed"
         
-        # eval kullanımı riskli ama bu örnekte kontrollü şekilde kullanıyoruz
+        # Using eval is risky but we're using it in a controlled way in this example
         result = eval(expression)
-        return f"Sonuç: {result}"
+        return f"Result: {result}"
     except Exception as e:
-        return f"Hesaplama hatası: {str(e)}"
+        return f"Calculation error: {str(e)}"
 
 def weather_tool(city: str) -> str:
     """
-    Hava durumu aracı (mock - gerçek API kullanımı için API key gerekir)
+    Weather tool (mock - requires API key for real API usage)
     """
-    # Örnek mock hava durumu verisi
+    # Sample mock weather data
     mock_weather_data = {
-        "istanbul": "İstanbul: 22°C, Parçalı bulutlu, Nem: %65",
-        "ankara": "Ankara: 18°C, Açık, Nem: %45", 
-        "izmir": "İzmir: 25°C, Güneşli, Nem: %70",
-        "antalya": "Antalya: 28°C, Güneşli, Nem: %60"
+        "new york": "New York: 22°C, Partly cloudy, Humidity: 65%",
+        "london": "London: 18°C, Clear, Humidity: 45%", 
+        "tokyo": "Tokyo: 25°C, Sunny, Humidity: 70%",
+        "paris": "Paris: 28°C, Sunny, Humidity: 60%"
     }
     
     city_lower = city.lower()
     if city_lower in mock_weather_data:
         return mock_weather_data[city_lower]
     else:
-        return f"{city} için hava durumu bilgisi bulunamadı. Mevcut şehirler: İstanbul, Ankara, İzmir, Antalya"
+        return f"Weather information not found for {city}. Available cities: New York, London, Tokyo, Paris"
 
 def datetime_tool(format_type: str = "full") -> str:
     """
-    Tarih ve saat bilgisi aracı
+    Date and time information tool
     """
     now = datetime.now()
     
@@ -78,8 +78,8 @@ def datetime_tool(format_type: str = "full") -> str:
 
 def text_analysis_tool(text: str) -> str:
     """
-    Metin analiz aracı
-    Temel metin istatistiklerini verir
+    Text analysis tool
+    Provides basic text statistics
     """
     words = text.split()
     characters = len(text)
@@ -87,33 +87,33 @@ def text_analysis_tool(text: str) -> str:
     sentences = text.count('.') + text.count('!') + text.count('?')
     
     return f"""
-    Metin Analizi:
-    - Kelime sayısı: {len(words)}
-    - Karakter sayısı: {characters}
-    - Boşluksuz karakter sayısı: {characters_no_spaces}
-    - Cümle sayısı: {sentences}
-    - Ortalama kelime uzunluğu: {sum(len(word) for word in words) / len(words):.2f}
+    Text Analysis:
+    - Word count: {len(words)}
+    - Character count: {characters}
+    - Characters without spaces: {characters_no_spaces}
+    - Sentence count: {sentences}
+    - Average word length: {sum(len(word) for word in words) / len(words):.2f}
     """
 
 def currency_converter_tool(amount_and_currencies: str) -> str:
     """
-    Para birimi çevirici (mock veri)
-    Format: "100 USD to TRY" 
+    Currency converter (mock data)
+    Format: "100 USD to EUR" 
     """
-    # Mock döviz kurları
+    # Mock exchange rates
     exchange_rates = {
-        ("USD", "TRY"): 27.5,
-        ("EUR", "TRY"): 30.2,
-        ("GBP", "TRY"): 35.1,
-        ("USD", "EUR"): 0.91,
-        ("EUR", "USD"): 1.10,
-        ("TRY", "USD"): 0.036
+        ("USD", "EUR"): 0.85,
+        ("EUR", "USD"): 1.18,
+        ("USD", "GBP"): 0.73,
+        ("GBP", "USD"): 1.37,
+        ("EUR", "GBP"): 0.86,
+        ("GBP", "EUR"): 1.16
     }
     
     try:
         parts = amount_and_currencies.split()
         if "to" not in parts:
-            return "Format: 'miktar FROM_CURRENCY to TO_CURRENCY' (örnek: '100 USD to TRY')"
+            return "Format: 'amount FROM_CURRENCY to TO_CURRENCY' (example: '100 USD to EUR')"
         
         amount = float(parts[0])
         from_currency = parts[1].upper()
@@ -124,40 +124,40 @@ def currency_converter_tool(amount_and_currencies: str) -> str:
             result = amount * exchange_rates[rate_key]
             return f"{amount} {from_currency} = {result:.2f} {to_currency}"
         else:
-            return f"Döviz çifti {from_currency}-{to_currency} için kur bulunamadı"
+            return f"Exchange rate not found for {from_currency}-{to_currency} pair"
     
     except Exception as e:
-        return f"Hata: {str(e)}. Format: 'miktar FROM_CURRENCY to TO_CURRENCY'"
+        return f"Error: {str(e)}. Format: 'amount FROM_CURRENCY to TO_CURRENCY'"
 
 def basic_agent_example():
     """
-    Temel agent kullanımı
+    Basic agent usage
     """
-    print("=== TEMEL AGENT KULLANIMI ===")
+    print("=== BASIC AGENT USAGE ===")
     
-    # LLM oluştur
+    # Create LLM
     llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.3)
     
-    # Araçları tanımla
+    # Define tools
     tools = [
         Tool(
             name="Calculator",
             func=calculator_tool,
-            description="Matematiksel hesaplamalar için kullanın. Girdi: matematiksel ifade (örnek: '2+2*3')"
+            description="Use for mathematical calculations. Input: mathematical expression (example: '2+2*3')"
         ),
         Tool(
             name="Weather",
             func=weather_tool,
-            description="Hava durumu bilgisi için kullanın. Girdi: şehir adı (İstanbul, Ankara, İzmir, Antalya)"
+            description="Use for weather information. Input: city name (New York, London, Tokyo, Paris)"
         ),
         Tool(
             name="DateTime",
             func=datetime_tool,
-            description="Tarih ve saat bilgisi için kullanın. Girdi: 'full', 'date', veya 'time'"
+            description="Use for date and time information. Input: 'full', 'date', or 'time'"
         )
     ]
     
-    # Agent'ı initialize et
+    # Initialize agent
     agent = initialize_agent(
         tools=tools,
         llm=llm,
@@ -166,56 +166,56 @@ def basic_agent_example():
         handle_parsing_errors=True
     )
     
-    # Test soruları
+    # Test queries
     test_queries = [
-        "15 * 24 + 100 işlemini hesapla",
-        "İstanbul'un hava durumu nasıl?",
-        "Şu anki tarih ve saat nedir?",
-        "250 + 150 çıkar sonra 5 ile çarp"
+        "Calculate 15 * 24 + 100",
+        "What's the weather like in London?",
+        "What's the current date and time?",
+        "Calculate 250 + 150 then multiply by 5"
     ]
     
     for query in test_queries:
-        print(f"\n--- Sorgu: {query} ---")
+        print(f"\n--- Query: {query} ---")
         try:
             response = agent.run(query)
-            print(f"Agent Cevabı: {response}")
+            print(f"Agent Response: {response}")
         except Exception as e:
-            print(f"Hata: {e}")
+            print(f"Error: {e}")
         print("-" * 50)
 
 def react_agent_example():
     """
-    ReAct (Reasoning + Acting) agent örneği
-    Daha gelişmiş düşünme ve hareket etme kombinasyonu
+    ReAct (Reasoning + Acting) agent example
+    Advanced combination of reasoning and acting
     """
-    print("\n=== REACT AGENT ÖRNEĞİ ===")
+    print("\n=== REACT AGENT EXAMPLE ===")
     
     llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.2)
     
-    # Daha karmaşık araçlar
+    # More complex tools
     tools = [
         Tool(
             name="Calculator",
             func=calculator_tool,
-            description="Matematiksel hesaplamalar için kullanın"
+            description="Use for mathematical calculations"
         ),
         Tool(
             name="TextAnalysis",
             func=text_analysis_tool,
-            description="Metin analizi için kullanın. Girdi: analiz edilecek metin"
+            description="Use for text analysis. Input: text to analyze"
         ),
         Tool(
             name="CurrencyConverter", 
             func=currency_converter_tool,
-            description="Para birimi çevirisi için kullanın. Format: 'miktar FROM to TO' (örnek: '100 USD to TRY')"
+            description="Use for currency conversion. Format: 'amount FROM to TO' (example: '100 USD to EUR')"
         )
     ]
     
-    # ReAct prompt template'ini al
+    # Get ReAct prompt template
     try:
         prompt = hub.pull("hwchase17/react")
     except:
-        # Hub'dan alınamazsa basit bir prompt oluştur
+        # Create simple prompt if can't get from hub
         from langchain.prompts import PromptTemplate
         prompt = PromptTemplate(
             input_variables=["tools", "tool_names", "input", "agent_scratchpad"],
@@ -240,7 +240,7 @@ Question: {input}
 Thought:{agent_scratchpad}"""
         )
     
-    # ReAct agent oluştur
+    # Create ReAct agent
     agent = create_react_agent(llm, tools, prompt)
     agent_executor = AgentExecutor(
         agent=agent,
@@ -250,59 +250,59 @@ Thought:{agent_scratchpad}"""
         max_iterations=10
     )
     
-    # Karmaşık sorular
+    # Complex queries
     complex_queries = [
-        "Bu metni analiz et: 'Python harika bir programlama dilidir. Öğrenmesi kolay ve çok güçlüdür.' Sonra kelime sayısını 5 ile çarp.",
-        "100 USD'yi TRY'ye çevir, sonra sonucu 2'ye böl",
-        "Şu hesaplamayı yap: (25 * 4) + (30 / 2) - 10, sonra sonucu 'Bu sayı çok büyük' metninin kelime sayısı ile çarp"
+        "Analyze this text: 'Python is a great programming language. It's easy to learn and very powerful.' Then multiply the word count by 5.",
+        "Convert 100 USD to EUR, then divide the result by 2",
+        "Calculate: (25 * 4) + (30 / 2) - 10, then multiply the result by the word count of 'This number is very big'"
     ]
     
     for query in complex_queries:
         print(f"\n{'='*60}")
-        print(f"Karmaşık Sorgu: {query}")
+        print(f"Complex Query: {query}")
         print('='*60)
         
         try:
             response = agent_executor.invoke({"input": query})
             print(f"\nFinal Answer: {response['output']}")
         except Exception as e:
-            print(f"Hata: {e}")
+            print(f"Error: {e}")
 
 def conversational_agent_example():
     """
-    Memory ile conversational agent
-    Konuşma geçmişini hatırlayan agent
+    Conversational agent with memory
+    Agent that remembers conversation history
     """
-    print("\n=== CONVERSATİONAL AGENT ===")
+    print("\n=== CONVERSATIONAL AGENT ===")
     
     llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.5)
     
-    # Memory oluştur
+    # Create memory
     memory = ConversationBufferMemory(
         memory_key="chat_history",
         return_messages=True
     )
     
-    # Araçlar
+    # Tools
     tools = [
         Tool(
             name="Calculator",
             func=calculator_tool,
-            description="Matematiksel hesaplamalar için kullanın"
+            description="Use for mathematical calculations"
         ),
         Tool(
             name="Weather",
             func=weather_tool,
-            description="Hava durumu bilgisi için kullanın"
+            description="Use for weather information"
         ),
         Tool(
             name="DateTime",
             func=datetime_tool,
-            description="Tarih ve saat bilgisi için kullanın"
+            description="Use for date and time information"
         )
     ]
     
-    # Conversational agent oluştur
+    # Create conversational agent
     agent = initialize_agent(
         tools=tools,
         llm=llm,
@@ -312,87 +312,87 @@ def conversational_agent_example():
         handle_parsing_errors=True
     )
     
-    # Conversation simülasyonu
+    # Conversation simulation
     conversation_flow = [
-        "Merhaba, benim adım Ali. 25 yaşındayım.",
-        "İstanbul'un hava durumu nasıl?",
-        "10 * 5 + 20 hesapla",
-        "Benim adımı hatırlıyor musun?",
-        "Az önce hesapladığın sonuca 15 ekle",
-        "Şu anki saat kaç?"
+        "Hello, my name is Alex. I'm 25 years old.",
+        "What's the weather like in New York?",
+        "Calculate 10 * 5 + 20",
+        "Do you remember my name?",
+        "Add 15 to the result you just calculated",
+        "What's the current time?"
     ]
     
     for message in conversation_flow:
-        print(f"\n--- Kullanıcı: {message} ---")
+        print(f"\n--- User: {message} ---")
         try:
             response = agent.run(message)
             print(f"Agent: {response}")
         except Exception as e:
-            print(f"Hata: {e}")
+            print(f"Error: {e}")
         print("-" * 40)
 
 def custom_tool_agent_example():
     """
-    Özel araçlarla agent örneği
+    Agent example with custom tools
     """
-    print("\n=== ÖZEL ARAÇLARLA AGENT ===")
+    print("\n=== AGENT WITH CUSTOM TOOLS ===")
     
     def fibonacci_tool(n: str) -> str:
-        """Fibonacci dizisi hesaplama aracı"""
+        """Fibonacci sequence calculation tool"""
         try:
             num = int(n)
             if num < 0:
-                return "Negatif sayılar için Fibonacci hesaplanamaz"
+                return "Fibonacci cannot be calculated for negative numbers"
             elif num <= 1:
                 return str(num)
             
             a, b = 0, 1
             for _ in range(2, num + 1):
                 a, b = b, a + b
-            return f"{num}. Fibonacci sayısı: {b}"
+            return f"{num}th Fibonacci number: {b}"
         except Exception as e:
-            return f"Hata: {str(e)}"
+            return f"Error: {str(e)}"
     
     def prime_check_tool(n: str) -> str:
-        """Asal sayı kontrolü aracı"""
+        """Prime number check tool"""
         try:
             num = int(n)
             if num < 2:
-                return f"{num} asal sayı değildir"
+                return f"{num} is not a prime number"
             
             for i in range(2, int(math.sqrt(num)) + 1):
                 if num % i == 0:
-                    return f"{num} asal sayı değildir ({i} ile bölünebilir)"
+                    return f"{num} is not a prime number (divisible by {i})"
             
-            return f"{num} asal sayıdır"
+            return f"{num} is a prime number"
         except Exception as e:
-            return f"Hata: {str(e)}"
+            return f"Error: {str(e)}"
     
     def word_reverse_tool(text: str) -> str:
-        """Metin ters çevirme aracı"""
-        return f"Ters çevrilmiş: {text[::-1]}"
+        """Text reversal tool"""
+        return f"Reversed: {text[::-1]}"
     
     # Custom tools
     custom_tools = [
         Tool(
             name="Fibonacci",
             func=fibonacci_tool,
-            description="N. Fibonacci sayısını hesaplar. Girdi: pozitif tam sayı"
+            description="Calculates the Nth Fibonacci number. Input: positive integer"
         ),
         Tool(
             name="PrimeCheck",
             func=prime_check_tool,
-            description="Bir sayının asal olup olmadığını kontrol eder. Girdi: pozitif tam sayı"
+            description="Checks if a number is prime. Input: positive integer"
         ),
         Tool(
             name="ReverseText",
             func=word_reverse_tool,
-            description="Verilen metni ters çevirir. Girdi: herhangi bir metin"
+            description="Reverses given text. Input: any text"
         ),
         Tool(
             name="Calculator",
             func=calculator_tool,
-            description="Matematiksel hesaplamalar için kullanın"
+            description="Use for mathematical calculations"
         )
     ]
     
@@ -406,53 +406,53 @@ def custom_tool_agent_example():
         handle_parsing_errors=True
     )
     
-    # Özel araçları test et
+    # Test custom tools
     custom_queries = [
-        "10. Fibonacci sayısını hesapla",
-        "17 sayısı asal mı?",
-        "'LangChain' kelimesini ters çevir",
-        "5. Fibonacci sayısını bul, sonra bu sayının asal olup olmadığını kontrol et",
-        "100 sayısını 7'ye böl, sonra sonucun asal olup olmadığına bak"
+        "Calculate the 10th Fibonacci number",
+        "Is 17 a prime number?",
+        "Reverse the word 'LangChain'",
+        "Find the 5th Fibonacci number, then check if it's prime",
+        "Divide 100 by 7, then check if the result is prime"
     ]
     
     for query in custom_queries:
-        print(f"\n--- Özel Araç Sorgusu: {query} ---")
+        print(f"\n--- Custom Tool Query: {query} ---")
         try:
             response = agent.run(query)
-            print(f"Agent Cevabı: {response}")
+            print(f"Agent Response: {response}")
         except Exception as e:
-            print(f"Hata: {e}")
+            print(f"Error: {e}")
         print("-" * 50)
 
 def multi_step_problem_solving():
     """
-    Çok adımlı problem çözme örneği
+    Multi-step problem solving example
     """
-    print("\n=== ÇOK ADIMLI PROBLEM ÇÖZME ===")
+    print("\n=== MULTI-STEP PROBLEM SOLVING ===")
     
     llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.1)
     
-    # Tüm araçları birleştir
+    # Combine all tools
     all_tools = [
         Tool(
             name="Calculator",
             func=calculator_tool,
-            description="Matematiksel hesaplamalar için kullanın"
+            description="Use for mathematical calculations"
         ),
         Tool(
             name="TextAnalysis",
             func=text_analysis_tool,
-            description="Metin analizi için kullanın"
+            description="Use for text analysis"
         ),
         Tool(
             name="CurrencyConverter",
             func=currency_converter_tool,
-            description="Para birimi çevirisi için kullanın"
+            description="Use for currency conversion"
         ),
         Tool(
             name="DateTime",
             func=datetime_tool,
-            description="Tarih ve saat bilgisi için kullanın"
+            description="Use for date and time information"
         )
     ]
     
@@ -465,47 +465,47 @@ def multi_step_problem_solving():
         max_iterations=15
     )
     
-    # Çok karmaşık problem
+    # Very complex problem
     complex_problem = """
-    Şu adımları takip et:
-    1. Bugünün tarihini al
-    2. 'Bugün LangChain öğreniyorum ve çok eğleniyorum!' metnini analiz et
-    3. Bu metnin kelime sayısını 25 ile çarp
-    4. Çıkan sonucu 100 USD'ye ekle ve toplam miktarı TRY'ye çevir
-    5. Final sonucu söyle
+    Follow these steps:
+    1. Get today's date
+    2. Analyze the text 'Today I am learning LangChain and having so much fun!'
+    3. Multiply the word count of this text by 25
+    4. Add the result to 100 USD and convert the total amount to EUR
+    5. Tell me the final result
     """
     
-    print(f"Karmaşık Problem: {complex_problem}")
+    print(f"Complex Problem: {complex_problem}")
     print("-" * 80)
     
     try:
         response = agent.run(complex_problem)
-        print(f"\nFINAL SONUÇ: {response}")
+        print(f"\nFINAL RESULT: {response}")
     except Exception as e:
-        print(f"Hata: {e}")
+        print(f"Error: {e}")
 
 def main():
     """
-    Ana fonksiyon - tüm agent ve tool örneklerini çalıştır
+    Main function - run all agent and tool examples
     """
-    print("LangChain Agents ve Tools Örnekleri Başlıyor...\n")
+    print("LangChain Agents and Tools Examples Starting...\n")
     
     if not os.getenv("OPENAI_API_KEY"):
-        print("HATA: OPENAI_API_KEY environment variable bulunamadı!")
+        print("ERROR: OPENAI_API_KEY environment variable not found!")
         return
     
     try:
-        # Agent örneklerini çalıştır
+        # Run agent examples
         basic_agent_example()
         react_agent_example()
         conversational_agent_example()
         custom_tool_agent_example()
         multi_step_problem_solving()
         
-        print("\n✅ Tüm agent ve tool örnekleri başarıyla tamamlandı!")
+        print("\n✅ All agent and tool examples completed successfully!")
         
     except Exception as e:
-        print(f"❌ Hata oluştu: {e}")
+        print(f"❌ Error occurred: {e}")
 
 if __name__ == "__main__":
     main()

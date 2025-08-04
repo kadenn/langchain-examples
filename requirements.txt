@@ -1,25 +1,25 @@
-# LangChain temel kütüphaneleri
+# LangChain core libraries
 langchain==0.1.0
 langchain-openai==0.0.5
 langchain-community==0.0.10
 
-# Vector store ve embeddings için
+# For vector stores and embeddings
 chromadb==0.4.22
 faiss-cpu==1.7.4
 
-# Belge işleme için
+# For document processing
 pypdf==3.17.4
 python-docx==1.1.0
 beautifulsoup4==4.12.2
 requests==2.31.0
 
-# Web scraping ve utilities
+# Web scraping and utilities
 selenium==4.16.0
 html2text==2020.1.16
 
-# OpenAI API (veya diğer LLM sağlayıcıları için)
+# OpenAI API (or for other LLM providers)
 openai==1.6.1
 
-# Utility kütüphaneleri
+# Utility libraries
 python-dotenv==1.0.0
 tiktoken==0.5.2

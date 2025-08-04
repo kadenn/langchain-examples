@@ -8,7 +8,7 @@ import os
 import sys
 from dotenv import load_dotenv
 
-# Tüm modülleri import et
+# Import all modules
 try:
     import importlib.util
     

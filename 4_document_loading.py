@@ -1,11 +1,11 @@
 """
-LangChain Document Loading ve Processing
-Bu dosya LangChain'in belge yükleme ve işleme özelliklerini gösterir:
-- Text dosyası yükleme
-- PDF dosyası yükleme
-- Web sayfası yükleme
-- Belgeleri parçalara ayırma (Text Splitting)
-- Farklı belge formatlarını işleme
+LangChain Document Loading and Processing
+This file demonstrates LangChain's document loading and processing features:
+- Loading text files
+- Loading PDF files and web pages
+- Directory-based loading
+- Text splitting (Text Splitting)
+- Processing different document formats
 """
 
 import os
@@ -29,56 +29,56 @@ load_dotenv()
 
 def create_sample_documents():
     """
-    Test için örnek belgeler oluştur
+    Create sample documents for testing
     """
-    print("=== ÖRNEK BELGELER OLUŞTURULUYOR ===")
+    print("=== CREATING SAMPLE DOCUMENTS ===")
     
-    # Örnek metin dosyası oluştur
+    # Create sample text file
     sample_text = """
-Python Programlama Dili
+Python Programming Language
 
-Python, 1991 yılında Guido van Rossum tarafından geliştirilmiş, yüksek seviyeli, 
-genel amaçlı bir programlama dilidir. Python'un tasarım felsefesi, kod okunabilirliğini 
-vurgular ve özellikle girintilerin anlamlı olarak kullanıldığı sözdizimi ile bilinir.
+Python is a high-level, general-purpose programming language developed by 
+Guido van Rossum in 1991. Python's design philosophy emphasizes code 
+readability and is particularly known for its meaningful use of whitespace.
 
-Python Özellikleri:
-- Kolay öğrenim: Python'un sözdizimi sade ve anlaşılırdır
-- Çok platformlu: Windows, macOS, Linux'ta çalışır
-- Geniş kütüphane desteği: Standart kütüphane çok zengindir
-- Açık kaynak: Ücretsiz ve kaynak kodu açıktır
-- Nesne yönelimli: OOP paradigmasını destekler
+Python Features:
+- Easy to learn: Python's syntax is simple and understandable
+- Cross-platform: Works on Windows, macOS, Linux
+- Extensive library support: Rich standard library
+- Open source: Free and source code is open
+- Object-oriented: Supports OOP paradigm
 
-Python Kullanım Alanları:
-Web geliştirme, veri analizi, yapay zeka, makine öğrenmesi, otomasyon,
-bilimsel hesaplama ve daha birçok alanda kullanılır.
+Python Use Cases:
+Web development, data analysis, artificial intelligence, machine learning, 
+automation, scientific computing, and many other fields.
 
-Python'un popülaritesi son yıllarda özellikle veri bilimi ve yapay zeka 
-alanlarındaki kullanımı ile büyük artış göstermiştir.
+Python's popularity has grown significantly in recent years, especially 
+with its use in data science and artificial intelligence fields.
 """
     
     with open("sample_text.txt", "w", encoding="utf-8") as f:
         f.write(sample_text)
     
-    # Örnek HTML dosyası oluştur
+    # Create sample HTML file
     sample_html = """
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Web Geliştirme</title>
+    <title>Web Development</title>
 </head>
 <body>
-    <h1>Modern Web Geliştirme</h1>
-    <p>Web geliştirme, web siteleri ve web uygulamaları oluşturma sürecidir.</p>
+    <h1>Modern Web Development</h1>
+    <p>Web development is the process of creating websites and web applications.</p>
     
-    <h2>Frontend Teknolojileri</h2>
+    <h2>Frontend Technologies</h2>
     <ul>
-        <li>HTML - Yapı</li>
-        <li>CSS - Stil</li>
-        <li>JavaScript - Etkileşim</li>
-        <li>React, Vue, Angular - Framework'ler</li>
+        <li>HTML - Structure</li>
+        <li>CSS - Styling</li>
+        <li>JavaScript - Interaction</li>
+        <li>React, Vue, Angular - Frameworks</li>
     </ul>
     
-    <h2>Backend Teknolojileri</h2>
+    <h2>Backend Technologies</h2>
     <ul>
         <li>Node.js</li>
         <li>Python (Django, Flask)</li>
@@ -86,7 +86,7 @@ alanlarındaki kullanımı ile büyük artış göstermiştir.
         <li>PHP</li>
     </ul>
     
-    <p>Fullstack geliştiriciler hem frontend hem backend teknolojilerini kullanır.</p>
+    <p>Full-stack developers use both frontend and backend technologies.</p>
 </body>
 </html>
 """
@@ -94,185 +94,185 @@ alanlarındaki kullanımı ile büyük artış göstermiştir.
     with open("sample_web.html", "w", encoding="utf-8") as f:
         f.write(sample_html)
     
-    print("✅ Örnek dosyalar oluşturuldu: sample_text.txt, sample_web.html")
+    print("✅ Sample files created: sample_text.txt, sample_web.html")
 
 def text_loader_example():
     """
-    Text dosyası yükleme örneği
+    Text file loading example
     """
-    print("\n=== TEXT DOSYASI YÜKLEME ===")
+    print("\n=== TEXT FILE LOADING ===")
     
-    # Text loader oluştur
+    # Create text loader
     loader = TextLoader("sample_text.txt", encoding="utf-8")
     
-    # Belgeyi yükle
+    # Load document
     documents = loader.load()
     
-    print(f"Yüklenen belge sayısı: {len(documents)}")
-    print(f"İlk belgenin içeriği (ilk 200 karakter):")
+    print(f"Number of loaded documents: {len(documents)}")
+    print(f"First document content (first 200 characters):")
     print(f"{documents[0].page_content[:200]}...")
-    print(f"Belge metadata'sı: {documents[0].metadata}")
+    print(f"Document metadata: {documents[0].metadata}")
 
 def directory_loader_example():
     """
-    Dizin içindeki tüm dosyaları yükleme örneği
+    Directory loading example - load all files in directory
     """
-    print("\n=== DİZİN LOADER ÖRNEĞI ===")
+    print("\n=== DIRECTORY LOADER EXAMPLE ===")
     
-    # Dizindeki tüm .txt dosyalarını yükle
+    # Load all .txt files in directory
     loader = DirectoryLoader(".", glob="*.txt")
     documents = loader.load()
     
-    print(f"Dizindeki toplam belge sayısı: {len(documents)}")
+    print(f"Total documents in directory: {len(documents)}")
     for i, doc in enumerate(documents):
-        print(f"Belge {i+1}: {doc.metadata['source']}")
-        print(f"İçerik uzunluğu: {len(doc.page_content)} karakter")
+        print(f"Document {i+1}: {doc.metadata['source']}")
+        print(f"Content length: {len(doc.page_content)} characters")
 
 def web_loader_example():
     """
-    Web sayfası yükleme örneği
+    Web page loading example
     """
-    print("\n=== WEB SAYFA YÜKLEME ===")
+    print("\n=== WEB PAGE LOADING ===")
     
     try:
-        # Web sayfasını yükle
+        # Load web page
         loader = WebBaseLoader("https://python.org")
         documents = loader.load()
         
-        print(f"Web sayfası yüklendi: {len(documents)} belge")
-        print(f"İçerik uzunluğu: {len(documents[0].page_content)} karakter")
-        print(f"İlk 300 karakter:")
+        print(f"Web page loaded: {len(documents)} document")
+        print(f"Content length: {len(documents[0].page_content)} characters")
+        print(f"First 300 characters:")
         print(f"{documents[0].page_content[:300]}...")
         
     except Exception as e:
-        print(f"Web yükleme hatası (internet bağlantısı gerekli): {e}")
+        print(f"Web loading error (internet connection required): {e}")
         
-        # Local HTML dosyasını alternatif olarak kullan
-        print("Local HTML dosyası kullanılıyor...")
+        # Use local HTML file as alternative
+        print("Using local HTML file...")
         with open("sample_web.html", "r", encoding="utf-8") as f:
             html_content = f.read()
         
-        # Manual document oluştur
+        # Create manual document
         doc = Document(
             page_content=html_content,
             metadata={"source": "sample_web.html"}
         )
-        print(f"Local HTML belgesi yüklendi: {len(doc.page_content)} karakter")
+        print(f"Local HTML document loaded: {len(doc.page_content)} characters")
 
 def character_text_splitter_example():
     """
-    Karakter tabanlı metin bölme örneği
+    Character-based text splitting example
     """
-    print("\n=== KARAKTER TABANLI METİN BÖLME ===")
+    print("\n=== CHARACTER-BASED TEXT SPLITTING ===")
     
-    # Örnek belgeyi yükle
+    # Load sample document
     loader = TextLoader("sample_text.txt", encoding="utf-8")
     documents = loader.load()
     
-    # Character text splitter oluştur
+    # Create character text splitter
     text_splitter = CharacterTextSplitter(
-        chunk_size=200,      # Her parça maksimum 200 karakter
-        chunk_overlap=50,    # Parçalar arası 50 karakter örtüşme
-        length_function=len, # Uzunluk hesaplama fonksiyonu
-        separator="\n\n"     # Paragraf ayırıcısı
+        chunk_size=200,      # Maximum 200 characters per chunk
+        chunk_overlap=50,    # 50 character overlap between chunks
+        length_function=len, # Length calculation function
+        separator="\n\n"     # Paragraph separator
     )
     
-    # Belgeyi böl
+    # Split document
     split_docs = text_splitter.split_documents(documents)
     
-    print(f"Orijinal belge sayısı: {len(documents)}")
-    print(f"Bölünmüş parça sayısı: {len(split_docs)}")
+    print(f"Original document count: {len(documents)}")
+    print(f"Split chunk count: {len(split_docs)}")
     
-    # Her parçayı göster
+    # Show each chunk
     for i, doc in enumerate(split_docs):
-        print(f"\n--- Parça {i+1} ---")
-        print(f"Uzunluk: {len(doc.page_content)} karakter")
-        print(f"İçerik: {doc.page_content[:100]}...")
+        print(f"\n--- Chunk {i+1} ---")
+        print(f"Length: {len(doc.page_content)} characters")
+        print(f"Content: {doc.page_content[:100]}...")
 
 def recursive_text_splitter_example():
     """
-    Recursive (özyinelemeli) metin bölme örneği
-    Daha akıllı bölme yapar
+    Recursive text splitting example
+    Performs smarter splitting
     """
-    print("\n=== RECURSİVE METİN BÖLME ===")
+    print("\n=== RECURSIVE TEXT SPLITTING ===")
     
-    # Uzun metin örneği
+    # Long text example
     long_text = """
-    Yapay Zeka ve Makine Öğrenmesi
+    Artificial Intelligence and Machine Learning
 
-    Yapay zeka (AI), makinelerin insan benzeri düşünme ve öğrenme yeteneklerini simüle etmesidir.
+    Artificial intelligence (AI) is the simulation of human intelligence processes by machines.
     
-    Makine Öğrenmesi Türleri:
-    1. Gözetimli Öğrenme (Supervised Learning)
-    2. Gözetimsiz Öğrenme (Unsupervised Learning)  
-    3. Pekiştirmeli Öğrenme (Reinforcement Learning)
+    Machine Learning Types:
+    1. Supervised Learning
+    2. Unsupervised Learning  
+    3. Reinforcement Learning
     
-    Derin Öğrenme (Deep Learning) ise yapay sinir ağlarını kullanarak karmaşık problemleri çözer.
+    Deep Learning uses artificial neural networks to solve complex problems.
     
-    Günümüzde AI kullanım alanları:
-    - Doğal dil işleme
-    - Bilgisayarlı görü
-    - Otonom araçlar
-    - Tıp ve sağlık
-    - Finans
+    Current AI application areas:
+    - Natural language processing
+    - Computer vision
+    - Autonomous vehicles
+    - Medicine and healthcare
+    - Finance
     """
     
-    # Recursive text splitter oluştur
+    # Create recursive text splitter
     text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=150,
         chunk_overlap=30,
-        separators=["\n\n", "\n", " ", ""]  # Öncelik sırası ile ayırıcılar
+        separators=["\n\n", "\n", " ", ""]  # Separators in priority order
     )
     
-    # Metni böl
+    # Split text
     chunks = text_splitter.split_text(long_text)
     
-    print(f"Toplam parça sayısı: {len(chunks)}")
+    print(f"Total chunk count: {len(chunks)}")
     
     for i, chunk in enumerate(chunks):
-        print(f"\n--- Parça {i+1} ---")
-        print(f"Uzunluk: {len(chunk)} karakter")
-        print(f"İçerik: {chunk.strip()}")
+        print(f"\n--- Chunk {i+1} ---")
+        print(f"Length: {len(chunk)} characters")
+        print(f"Content: {chunk.strip()}")
 
 def token_text_splitter_example():
     """
-    Token tabanlı metin bölme örneği
-    LLM token limitlerini dikkate alır
+    Token-based text splitting example
+    Considers LLM token limits
     """
-    print("\n=== TOKEN TABANLI METİN BÖLME ===")
+    print("\n=== TOKEN-BASED TEXT SPLITTING ===")
     
-    # Örnek belgeyi yükle
+    # Load sample document
     loader = TextLoader("sample_text.txt", encoding="utf-8")
     documents = loader.load()
     
-    # Token text splitter oluştur
+    # Create token text splitter
     text_splitter = TokenTextSplitter(
-        chunk_size=100,      # Her parça maksimum 100 token
-        chunk_overlap=20     # Parçalar arası 20 token örtüşme
+        chunk_size=100,      # Maximum 100 tokens per chunk
+        chunk_overlap=20     # 20 token overlap between chunks
     )
     
-    # Belgeleri böl
+    # Split documents
     split_docs = text_splitter.split_documents(documents)
     
-    print(f"Token tabanlı bölünmüş parça sayısı: {len(split_docs)}")
+    print(f"Token-based split chunk count: {len(split_docs)}")
     
     for i, doc in enumerate(split_docs):
-        print(f"\n--- Token Parçası {i+1} ---")
-        # Token sayısını tahmin et (yaklaşık)
+        print(f"\n--- Token Chunk {i+1} ---")
+        # Estimate token count (approximate)
         estimated_tokens = len(doc.page_content.split()) * 1.3
-        print(f"Tahmini token sayısı: {estimated_tokens:.0f}")
-        print(f"İçerik: {doc.page_content[:150]}...")
+        print(f"Estimated token count: {estimated_tokens:.0f}")
+        print(f"Content: {doc.page_content[:150]}...")
 
 def document_summarization_example():
     """
-    Belge özetleme örneği
-    Yüklenen belgeleri özetler
+    Document summarization example
+    Summarizes loaded documents
     """
-    print("\n=== BELGE ÖZETLEME ===")
+    print("\n=== DOCUMENT SUMMARIZATION ===")
     
     llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.3)
     
-    # Belgeyi yükle ve böl
+    # Load and split document
     loader = TextLoader("sample_text.txt", encoding="utf-8")
     documents = loader.load()
     
@@ -282,70 +282,70 @@ def document_summarization_example():
     )
     split_docs = text_splitter.split_documents(documents)
     
-    # Özetleme chain'i yükle
+    # Load summarization chain
     summarize_chain = load_summarize_chain(
         llm=llm,
-        chain_type="map_reduce",  # Uzun belgeler için map_reduce
+        chain_type="map_reduce",  # map_reduce for long documents
         verbose=True
     )
     
     try:
-        # Belgeyi özetle
+        # Summarize document
         summary = summarize_chain.run(split_docs)
         
-        print(f"Orijinal belge uzunluğu: {sum(len(doc.page_content) for doc in split_docs)} karakter")
-        print(f"Özet uzunluğu: {len(summary)} karakter")
-        print(f"\nÖzet:")
+        print(f"Original document length: {sum(len(doc.page_content) for doc in split_docs)} characters")
+        print(f"Summary length: {len(summary)} characters")
+        print(f"\nSummary:")
         print(summary)
         
     except Exception as e:
-        print(f"Özetleme hatası: {e}")
+        print(f"Summarization error: {e}")
 
 def cleanup_files():
     """
-    Test dosyalarını temizle
+    Clean up test files
     """
     try:
         os.remove("sample_text.txt")
         os.remove("sample_web.html")
-        print("\n✅ Test dosyaları temizlendi")
+        print("\n✅ Test files cleaned up")
     except:
         pass
 
 def main():
     """
-    Ana fonksiyon - tüm belge yükleme örneklerini çalıştır
+    Main function - run all document loading examples
     """
-    print("LangChain Document Loading Örnekleri Başlıyor...\n")
+    print("LangChain Document Loading Examples Starting...\n")
     
     if not os.getenv("OPENAI_API_KEY"):
-        print("HATA: OPENAI_API_KEY environment variable bulunamadı!")
+        print("ERROR: OPENAI_API_KEY environment variable not found!")
         return
     
     try:
-        # Örnek dosyaları oluştur
+        # Create sample files
         create_sample_documents()
         
-        # Belge yükleme örnekleri
+        # Document loading examples
         text_loader_example()
         directory_loader_example()
         web_loader_example()
         
-        # Metin bölme örnekleri
+        # Text splitting examples
         character_text_splitter_example()
         recursive_text_splitter_example()
         token_text_splitter_example()
         
-        # Belge işleme örneği
+        # Document processing example
         document_summarization_example()
         
-        print("\n✅ Tüm document loading örnekleri başarıyla tamamlandı!")
+        print("\n✅ All document loading examples completed successfully!")
         
     except Exception as e:
-        print(f"❌ Hata oluştu: {e}")
+        print(f"❌ Error occurred: {e}")
     
     finally:
-        # Dosyaları temizle
+        # Clean up files
         cleanup_files()
 
 if __name__ == "__main__":

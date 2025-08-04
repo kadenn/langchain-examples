@@ -1,6 +1,6 @@
 """
-LangChain Memory Management (Hafıza Yönetimi)
-Bu dosya LangChain'in hafıza yönetimi özelliklerini gösterir:
+LangChain Memory Management
+This file demonstrates LangChain's memory management features:
 - Conversation Buffer Memory
 - Conversation Summary Memory
 - Conversation Token Buffer Memory
@@ -25,90 +25,90 @@ load_dotenv()
 
 def conversation_buffer_memory_example():
     """
-    Conversation Buffer Memory örneği
-    Tüm konuşma geçmişini olduğu gibi saklar
+    Conversation Buffer Memory example
+    Stores entire conversation history as is
     """
     print("=== CONVERSATION BUFFER MEMORY ===")
     
     llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.7)
     
-    # Buffer memory oluştur
+    # Create buffer memory
     memory = ConversationBufferMemory()
     
-    # Conversation chain oluştur
+    # Create conversation chain
     conversation = ConversationChain(
         llm=llm,
         memory=memory,
-        verbose=True  # Hafızada ne olduğunu göster
+        verbose=True  # Show what's in memory
     )
     
-    # İlk soru
-    response1 = conversation.predict(input="Merhaba, benim adım Ali. Senin adın ne?")
+    # First question
+    response1 = conversation.predict(input="Hello, my name is John. What's your name?")
     print(f"AI: {response1}\n")
     
-    # İkinci soru (hafızada ilk soruyu hatırlayacak)
-    response2 = conversation.predict(input="Benim adımı hatırlıyor musun?")
+    # Second question (should remember the first question)
+    response2 = conversation.predict(input="Do you remember my name?")
     print(f"AI: {response2}\n")
     
-    # Üçüncü soru
-    response3 = conversation.predict(input="Python hakkında ne biliyorsun?")
+    # Third question
+    response3 = conversation.predict(input="What do you know about Python programming?")
     print(f"AI: {response3}\n")
     
-    # Hafızadaki tüm konuşmayı göster
-    print("Hafızadaki Konuşma:")
+    # Show entire conversation in memory
+    print("Conversation in Memory:")
     print(memory.buffer)
     print("-" * 50)
 
 def conversation_summary_memory_example():
     """
-    Conversation Summary Memory örneği
-    Konuşma geçmişini özetleyerek saklar (uzun konuşmalar için ideal)
+    Conversation Summary Memory example
+    Stores conversation history as summaries (ideal for long conversations)
     """
     print("=== CONVERSATION SUMMARY MEMORY ===")
     
     llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.3)
     
-    # Summary memory oluştur
+    # Create summary memory
     memory = ConversationSummaryMemory(llm=llm)
     
-    # Conversation chain oluştur
+    # Create conversation chain
     conversation = ConversationChain(
         llm=llm,
         memory=memory,
         verbose=True
     )
     
-    # Uzun bir konuşma simülasyonu
+    # Long conversation simulation
     questions = [
-        "Merhaba, ben bir yazılım geliştiriciyim ve Python öğreniyorum.",
-        "Python'da en çok kullanılan veri yapıları nelerdir?",
-        "Liste ve sözlük arasındaki fark nedir?",
-        "Bana basit bir Python projesi önerebilir misin?"
+        "Hello, I'm a software developer and I'm learning Python.",
+        "What are the most commonly used data structures in Python?",
+        "What's the difference between lists and dictionaries?",
+        "Can you suggest a simple Python project for me?"
     ]
     
     for i, question in enumerate(questions, 1):
-        print(f"\n--- Soru {i} ---")
+        print(f"\n--- Question {i} ---")
         response = conversation.predict(input=question)
-        print(f"Kullanıcı: {question}")
+        print(f"User: {question}")
         print(f"AI: {response}")
     
-    # Özetlenmiş hafızayı göster
-    print(f"\nÖzetlenmiş Hafıza:\n{memory.buffer}")
+    # Show summarized memory
+    print(f"\nSummarized Memory:\n{memory.buffer}")
     print("-" * 50)
 
 def conversation_token_buffer_memory_example():
     """
-    Conversation Token Buffer Memory örneği
-    Belirli token limitine göre hafızayı yönetir
+    Conversation Token Buffer Memory example
+    Manages memory according to specific token limits
     """
     print("=== CONVERSATION TOKEN BUFFER MEMORY ===")
     
     llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.5)
     
-    # Token buffer memory oluştur (maksimum 100 token)
+    # Create token buffer memory (maximum 100 tokens)
     memory = ConversationTokenBufferMemory(
         llm=llm,
-        max_token_limit=100  # Çok düşük limit test için
+        max_token_limit=100  # Very low limit for testing
     )
     
     conversation = ConversationChain(
@@ -117,37 +117,37 @@ def conversation_token_buffer_memory_example():
         verbose=True
     )
     
-    # Çok fazla metin içeren sorular sor
+    # Ask questions with lots of text
     long_questions = [
-        "Merhaba, ben uzun bir süre boyunca programlama ile ilgileniyorum ve şu anda Python öğrenme sürecindeyim.",
-        "Web geliştirme alanında Django ve Flask framework'leri hakkında detaylı bilgi verebilir misin?",
-        "Makine öğrenmesi ve yapay zeka alanında Python'un rolü nedir ve hangi kütüphaneler kullanılır?",
-        "İlk sorumda kendimden bahsetmiştim, beni hatırlıyor musun?"  # Bu soru hafıza limitini test edecek
+        "Hello, I've been interested in programming for a long time and I'm currently in the process of learning Python.",
+        "Can you provide detailed information about Django and Flask frameworks in web development?",
+        "What is Python's role in machine learning and artificial intelligence, and which libraries are used?",
+        "In my first question I talked about myself, do you remember me?"  # This question will test memory limits
     ]
     
     for i, question in enumerate(long_questions, 1):
-        print(f"\n--- Soru {i} ---")
+        print(f"\n--- Question {i} ---")
         response = conversation.predict(input=question)
         print(f"AI: {response}")
         
-        # Hafızadaki token sayısını göster
-        print(f"Hafızadaki token sayısı: {memory.llm.get_num_tokens(memory.buffer)}")
+        # Show token count in memory
+        print(f"Token count in memory: {memory.llm.get_num_tokens(memory.buffer)}")
     
     print("-" * 50)
 
 def conversation_summary_buffer_memory_example():
     """
-    Conversation Summary Buffer Memory örneği
-    Hem buffer hem de summary kullanarak hybrid yaklaşım
+    Conversation Summary Buffer Memory example
+    Hybrid approach using both buffer and summary
     """
     print("=== CONVERSATION SUMMARY BUFFER MEMORY ===")
     
     llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.4)
     
-    # Summary buffer memory oluştur
+    # Create summary buffer memory
     memory = ConversationSummaryBufferMemory(
         llm=llm,
-        max_token_limit=150  # Bu limite ulaşınca özet çıkarır
+        max_token_limit=150  # When this limit is reached, it creates summaries
     )
     
     conversation = ConversationChain(
@@ -156,23 +156,23 @@ def conversation_summary_buffer_memory_example():
         verbose=True
     )
     
-    # Progressif olarak uzayan konuşma
+    # Progressively longer conversation
     conversation_flow = [
-        "Merhaba, ben Ayşe.",
-        "İstanbul'da yaşıyorum ve bilgisayar mühendisiyim.",
-        "Şu anda bir e-ticaret sitesi geliştiriyorum.",
-        "Python ve Django kullanıyorum bu proje için.",
-        "Veritabanı olarak da PostgreSQL tercih ettim.",
-        "Benim adımı ve mesleğimi hatırlıyor musun?"
+        "Hello, I'm Sarah.",
+        "I live in New York and I'm a computer engineer.",
+        "I'm currently developing an e-commerce website.",
+        "I'm using Python and Django for this project.",
+        "I also chose PostgreSQL as the database.",
+        "Do you remember my name and profession?"
     ]
     
     for i, message in enumerate(conversation_flow, 1):
-        print(f"\n--- Mesaj {i} ---")
+        print(f"\n--- Message {i} ---")
         response = conversation.predict(input=message)
-        print(f"Kullanıcı: {message}")
+        print(f"User: {message}")
         print(f"AI: {response}")
         
-        # Hafıza durumunu göster
+        # Show memory status
         print(f"Buffer: {memory.chat_memory.messages}")
         if hasattr(memory, 'moving_summary_buffer') and memory.moving_summary_buffer:
             print(f"Summary: {memory.moving_summary_buffer}")
@@ -181,14 +181,14 @@ def conversation_summary_buffer_memory_example():
 
 def conversation_window_memory_example():
     """
-    Conversation Window Memory örneği
-    Sadece son K mesajı hatırlar (sliding window)
+    Conversation Window Memory example
+    Only remembers the last K messages (sliding window)
     """
     print("=== CONVERSATION WINDOW MEMORY ===")
     
     llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.6)
     
-    # Window memory oluştur (sadece son 2 etkileşimi hatırla)
+    # Create window memory (remember only last 2 interactions)
     memory = ConversationBufferWindowMemory(k=2)
     
     conversation = ConversationChain(
@@ -197,46 +197,46 @@ def conversation_window_memory_example():
         verbose=True
     )
     
-    # Çok sayıda soru sor
+    # Ask many questions
     questions = [
-        "Benim adım Mehmet.",
-        "30 yaşındayım.",
-        "İzmir'de yaşıyorum.", 
-        "Doktor olarak çalışıyorum.",
-        "Kitap okumayı seviyorum.",
-        "Benim adımı hatırlıyor musun?",  # İlk mesaj unutulmuş olmalı
-        "Yaşımı hatırlıyor musun?",      # Bu da unutulmuş olmalı
-        "Mesleğimi hatırlıyor musun?"    # Bu hatırlanmalı
+        "My name is Michael.",
+        "I'm 30 years old.",
+        "I live in Chicago.", 
+        "I work as a doctor.",
+        "I love reading books.",
+        "Do you remember my name?",      # First message should be forgotten
+        "Do you remember my age?",       # This should also be forgotten
+        "Do you remember my profession?" # This should be remembered
     ]
     
     for i, question in enumerate(questions, 1):
-        print(f"\n--- Soru {i} ---")
+        print(f"\n--- Question {i} ---")
         response = conversation.predict(input=question)
-        print(f"Kullanıcı: {question}")
+        print(f"User: {question}")
         print(f"AI: {response}")
         
-        # Window'daki mesaj sayısını göster
-        print(f"Hafızadaki mesaj sayısı: {len(memory.chat_memory.messages)}")
+        # Show message count in window
+        print(f"Message count in memory: {len(memory.chat_memory.messages)}")
     
     print("-" * 50)
 
 def custom_memory_with_specific_info():
     """
-    Özel hafıza yönetimi örneği
-    Belirli bilgileri saklamak için özel prompt template kullanma
+    Custom memory management example
+    Using custom prompt template to store specific information
     """
-    print("=== ÖZEL HAFIZA YÖNETİMİ ===")
+    print("=== CUSTOM MEMORY MANAGEMENT ===")
     
     llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.5)
     
-    # Özel prompt template ile hafıza
-    template = """Sen yardımcı bir asistansın. Kullanıcı hakkında önemli bilgileri hatırlarsın.
+    # Custom prompt template with memory
+    template = """You are a helpful assistant. You remember important information about the user.
 
-Kullanıcı Bilgileri:
+User Information:
 {history}
 
-Kullanıcı: {input}
-Asistan:"""
+User: {input}
+Assistant:"""
     
     prompt = PromptTemplate(
         input_variables=["history", "input"],
@@ -252,34 +252,34 @@ Asistan:"""
         verbose=True
     )
     
-    # Kişisel bilgi toplama konuşması
+    # Personal information gathering conversation
     personal_questions = [
-        "Merhaba, ben Elif. 25 yaşındayım ve grafik tasarımcıyım.",
-        "Ankara'da yaşıyorum ve kedi beslerim.",
-        "Boş zamanlarımda resim yapmayı ve müzik dinlemeyi severim.",
-        "Favori müzik türüm jazz'dır.",
-        "Benim hakkımda hatırladığın şeyleri söyleyebilir misin?"
+        "Hello, I'm Emma. I'm 25 years old and I'm a graphic designer.",
+        "I live in Boston and I have a cat.",
+        "In my free time, I like to paint and listen to music.",
+        "My favorite music genre is jazz.",
+        "Can you tell me what you remember about me?"
     ]
     
     for question in personal_questions:
         response = conversation.predict(input=question)
-        print(f"Kullanıcı: {question}")
-        print(f"Asistan: {response}\n")
+        print(f"User: {question}")
+        print(f"Assistant: {response}\n")
     
     print("-" * 50)
 
 def main():
     """
-    Ana fonksiyon - tüm hafıza yönetimi örneklerini çalıştır
+    Main function - run all memory management examples
     """
-    print("LangChain Memory Management Örnekleri Başlıyor...\n")
+    print("LangChain Memory Management Examples Starting...\n")
     
     if not os.getenv("OPENAI_API_KEY"):
-        print("HATA: OPENAI_API_KEY environment variable bulunamadı!")
+        print("ERROR: OPENAI_API_KEY environment variable not found!")
         return
     
     try:
-        # Farklı hafıza türlerini test et
+        # Test different memory types
         conversation_buffer_memory_example()
         conversation_summary_memory_example()
         conversation_token_buffer_memory_example()
@@ -287,10 +287,10 @@ def main():
         conversation_window_memory_example()
         custom_memory_with_specific_info()
         
-        print("✅ Tüm memory management örnekleri başarıyla tamamlandı!")
+        print("✅ All memory management examples completed successfully!")
         
     except Exception as e:
-        print(f"❌ Hata oluştu: {e}")
+        print(f"❌ Error occurred: {e}")
 
 if __name__ == "__main__":
     main()

@@ -1,11 +1,11 @@
 """
-LangChain Vector Stores ve Embeddings
-Bu dosya LangChain'in vector store ve embedding özelliklerini gösterir:
-- Embeddings oluşturma
-- Vector store kullanımı (Chroma, FAISS)
-- Semantic search (anlamsal arama)
-- Similarity search (benzerlik araması)
-- Vector store ile belge arama
+LangChain Vector Stores and Embeddings
+This file demonstrates LangChain's vector store and embedding features:
+- Creating embeddings
+- Using vector stores (Chroma, FAISS)
+- Semantic search
+- Similarity search
+- Document search with vector stores
 """
 
 import os
@@ -23,103 +23,103 @@ load_dotenv()
 
 def create_sample_knowledge_base():
     """
-    Örnek bilgi tabanı belgeleri oluştur
+    Create sample knowledge base documents
     """
-    print("=== ÖRNEK BİLGİ TABANI OLUŞTURULUYOR ===")
+    print("=== CREATING SAMPLE KNOWLEDGE BASE ===")
     
-    # Çeşitli konularda örnek belgeler
+    # Sample documents on various topics
     documents_data = [
         {
             "content": """
-            Python Programlama Temelleri
+            Python Programming Fundamentals
             
-            Python, kolay öğrenilen ve güçlü bir programlama dilidir. 
-            Değişkenler, listeler, sözlükler ve fonksiyonlar Python'un temel yapı taşlarıdır.
+            Python is an easy-to-learn and powerful programming language. 
+            Variables, lists, dictionaries, and functions are Python's basic building blocks.
             
-            Temel Veri Tipleri:
-            - int: Tam sayılar
-            - float: Ondalıklı sayılar  
-            - str: Metinler
-            - bool: Doğru/Yanlış değerleri
+            Basic Data Types:
+            - int: Integers
+            - float: Decimal numbers  
+            - str: Strings
+            - bool: True/False values
             
-            Python'da girintiler çok önemlidir ve kod bloklarını belirler.
+            Indentation is very important in Python and defines code blocks.
             """,
             "metadata": {"topic": "python_basics", "difficulty": "beginner"}
         },
         {
             "content": """
-            Web Geliştirme ve Framework'ler
+            Web Development and Frameworks
             
-            Modern web geliştirme frontend ve backend teknolojilerini içerir.
+            Modern web development includes both frontend and backend technologies.
             
             Frontend: HTML, CSS, JavaScript
             Backend: Python (Django, Flask), Node.js, PHP
             
-            Responsive tasarım, mobile-first yaklaşım ve performans optimizasyonu
-            günümüz web geliştirmede kritik konulardır.
+            Responsive design, mobile-first approach, and performance optimization
+            are critical topics in today's web development.
             
-            Progressive Web Apps (PWA) ve Single Page Applications (SPA) 
-            popüler trend'lerdir.
+            Progressive Web Apps (PWA) and Single Page Applications (SPA) 
+            are popular trends.
             """,
             "metadata": {"topic": "web_development", "difficulty": "intermediate"}
         },
         {
             "content": """
-            Yapay Zeka ve Makine Öğrenmesi
+            Artificial Intelligence and Machine Learning
             
-            Yapay zeka, makinelerin insan benzeri düşünme yeteneklerini simüle etmesidir.
+            Artificial intelligence is the simulation of human-like thinking capabilities by machines.
             
-            Makine Öğrenmesi Türleri:
-            1. Supervised Learning: Etiketli verilerle öğrenme
-            2. Unsupervised Learning: Etiketsiz verilerle öğrenme
-            3. Reinforcement Learning: Ödül-ceza sistemiyle öğrenme
+            Machine Learning Types:
+            1. Supervised Learning: Learning with labeled data
+            2. Unsupervised Learning: Learning with unlabeled data
+            3. Reinforcement Learning: Learning through reward-penalty system
             
-            Derin öğrenme, yapay sinir ağları kullanarak karmaşık problemleri çözer.
-            TensorFlow, PyTorch ve Scikit-learn popüler kütüphanelerdir.
+            Deep learning solves complex problems using artificial neural networks.
+            TensorFlow, PyTorch, and Scikit-learn are popular libraries.
             """,
             "metadata": {"topic": "ai_ml", "difficulty": "advanced"}
         },
         {
             "content": """
-            Veri Bilimi ve Analizi
+            Data Science and Analysis
             
-            Veri bilimi, büyük veri setlerinden anlamlı bilgiler çıkarma sanatıdır.
+            Data science is the art of extracting meaningful insights from large datasets.
             
-            Veri Bilimi Süreci:
-            1. Veri toplama
-            2. Veri temizleme
-            3. Keşifsel veri analizi (EDA)
-            4. Model oluşturma
-            5. Sonuçları yorumlama
+            Data Science Process:
+            1. Data collection
+            2. Data cleaning
+            3. Exploratory data analysis (EDA)
+            4. Model building
+            5. Results interpretation
             
-            Pandas, NumPy, Matplotlib ve Seaborn en çok kullanılan araçlardır.
-            İstatistik bilgisi veri bilimci için temeldir.
+            Pandas, NumPy, Matplotlib, and Seaborn are the most commonly used tools.
+            Statistics knowledge is fundamental for data scientists.
             """,
             "metadata": {"topic": "data_science", "difficulty": "intermediate"}
         },
         {
             "content": """
-            Mobil Uygulama Geliştirme
+            Mobile Application Development
             
-            Mobil uygulamalar iOS ve Android platformları için geliştirilir.
+            Mobile applications are developed for iOS and Android platforms.
             
-            Native Geliştirme:
+            Native Development:
             - iOS: Swift, Objective-C
             - Android: Java, Kotlin
             
-            Cross-platform Geliştirme:
+            Cross-platform Development:
             - React Native
             - Flutter
             - Xamarin
             
-            Mobile-first tasarım, kullanıcı deneyimi (UX) ve performans 
-            mobil geliştirmede kritik faktörlerdir.
+            Mobile-first design, user experience (UX), and performance 
+            are critical factors in mobile development.
             """,
             "metadata": {"topic": "mobile_development", "difficulty": "intermediate"}
         }
     ]
     
-    # Dokümanları oluştur
+    # Create document objects
     documents = []
     for doc_data in documents_data:
         doc = Document(
@@ -128,317 +128,317 @@ def create_sample_knowledge_base():
         )
         documents.append(doc)
     
-    print(f"✅ {len(documents)} örnek belge oluşturuldu")
+    print(f"✅ {len(documents)} sample documents created")
     return documents
 
 def embedding_basics_example():
     """
-    Embedding'lerin temel kullanımı
+    Basic usage of embeddings
     """
-    print("\n=== EMBEDDİNG TEMELLERİ ===")
+    print("\n=== EMBEDDING BASICS ===")
     
-    # OpenAI embeddings oluştur
+    # Create OpenAI embeddings
     embeddings = OpenAIEmbeddings()
     
-    # Örnek metinler
+    # Sample texts
     texts = [
-        "Python harika bir programlama dilidir",
-        "Web geliştirme çok eğlencelidir", 
-        "Makine öğrenmesi geleceğin teknolojisidir",
-        "JavaScript frontend için kullanılır"
+        "Python is an amazing programming language",
+        "Web development is very fun", 
+        "Machine learning is the technology of the future",
+        "JavaScript is used for frontend development"
     ]
     
-    # Metinleri embedding'e çevir
+    # Convert texts to embeddings
     text_embeddings = embeddings.embed_documents(texts)
     
-    print(f"Toplam metin sayısı: {len(texts)}")
-    print(f"Her embedding'in boyutu: {len(text_embeddings[0])}")
-    print(f"İlk embedding'in ilk 5 değeri: {text_embeddings[0][:5]}")
+    print(f"Total text count: {len(texts)}")
+    print(f"Each embedding dimension: {len(text_embeddings[0])}")
+    print(f"First embedding's first 5 values: {text_embeddings[0][:5]}")
     
-    # Tek bir sorgu için embedding
-    query = "Python programlama"
+    # Embedding for a single query
+    query = "Python programming"
     query_embedding = embeddings.embed_query(query)
-    print(f"Sorgu embedding boyutu: {len(query_embedding)}")
-    print(f"Sorgu embedding'in ilk 5 değeri: {query_embedding[:5]}")
+    print(f"Query embedding dimension: {len(query_embedding)}")
+    print(f"Query embedding's first 5 values: {query_embedding[:5]}")
 
 def chroma_vector_store_example():
     """
-    Chroma vector store kullanımı
+    Chroma vector store usage
     """
     print("\n=== CHROMA VECTOR STORE ===")
     
-    # Örnek belgeleri al
+    # Get sample documents
     documents = create_sample_knowledge_base()
     
-    # Embeddings oluştur
+    # Create embeddings
     embeddings = OpenAIEmbeddings()
     
-    # Geçici dizin oluştur
+    # Create temporary directory
     temp_dir = tempfile.mkdtemp()
     
     try:
-        # Chroma vector store oluştur
+        # Create Chroma vector store
         vectorstore = Chroma.from_documents(
             documents=documents,
             embedding=embeddings,
             persist_directory=temp_dir
         )
         
-        print(f"✅ Chroma vector store oluşturuldu: {len(documents)} belge")
+        print(f"✅ Chroma vector store created: {len(documents)} documents")
         
-        # Benzerlik araması yap
-        query = "Python öğrenmek istiyorum"
+        # Perform similarity search
+        query = "I want to learn Python"
         similar_docs = vectorstore.similarity_search(query, k=2)
         
-        print(f"\nSorgu: '{query}'")
-        print(f"Bulunan benzer belgeler: {len(similar_docs)}")
+        print(f"\nQuery: '{query}'")
+        print(f"Found similar documents: {len(similar_docs)}")
         
         for i, doc in enumerate(similar_docs, 1):
-            print(f"\n--- Benzer Belge {i} ---")
-            print(f"Konu: {doc.metadata.get('topic', 'N/A')}")
-            print(f"İçerik: {doc.page_content[:200]}...")
+            print(f"\n--- Similar Document {i} ---")
+            print(f"Topic: {doc.metadata.get('topic', 'N/A')}")
+            print(f"Content: {doc.page_content[:200]}...")
         
-        # Skor ile birlikte arama
+        # Search with scores
         scored_docs = vectorstore.similarity_search_with_score(query, k=3)
-        print(f"\n--- SKOR İLE ARAMA ---")
+        print(f"\n--- SEARCH WITH SCORES ---")
         for doc, score in scored_docs:
-            print(f"Skor: {score:.4f} | Konu: {doc.metadata.get('topic', 'N/A')}")
+            print(f"Score: {score:.4f} | Topic: {doc.metadata.get('topic', 'N/A')}")
     
     finally:
-        # Geçici dizini temizle
+        # Clean up temporary directory
         shutil.rmtree(temp_dir, ignore_errors=True)
 
 def faiss_vector_store_example():
     """
-    FAISS vector store kullanımı
+    FAISS vector store usage
     """
     print("\n=== FAISS VECTOR STORE ===")
     
-    # Örnek belgeleri al
+    # Get sample documents
     documents = create_sample_knowledge_base()
     
-    # Embeddings oluştur
+    # Create embeddings
     embeddings = OpenAIEmbeddings()
     
-    # FAISS vector store oluştur
+    # Create FAISS vector store
     vectorstore = FAISS.from_documents(
         documents=documents,
         embedding=embeddings
     )
     
-    print(f"✅ FAISS vector store oluşturuldu: {len(documents)} belge")
+    print(f"✅ FAISS vector store created: {len(documents)} documents")
     
-    # Farklı arama türleri
+    # Different search types
     queries = [
-        "web geliştirme nedir",
-        "yapay zeka teknolojileri", 
-        "veri analizi nasıl yapılır",
-        "mobil app geliştirmek istiyorum"
+        "what is web development",
+        "artificial intelligence technologies", 
+        "how to do data analysis",
+        "I want to develop mobile apps"
     ]
     
     for query in queries:
-        print(f"\n--- Sorgu: '{query}' ---")
+        print(f"\n--- Query: '{query}' ---")
         
-        # En benzer belgeyi bul
+        # Find most similar document
         similar_docs = vectorstore.similarity_search(query, k=1)
         
         if similar_docs:
             doc = similar_docs[0]
-            print(f"En benzer konu: {doc.metadata.get('topic', 'N/A')}")
-            print(f"Zorluk: {doc.metadata.get('difficulty', 'N/A')}")
-            print(f"İçerik özeti: {doc.page_content[:150]}...")
+            print(f"Most similar topic: {doc.metadata.get('topic', 'N/A')}")
+            print(f"Difficulty: {doc.metadata.get('difficulty', 'N/A')}")
+            print(f"Content summary: {doc.page_content[:150]}...")
     
-    # Vector store'u dosyaya kaydet
+    # Save vector store to file
     try:
         vectorstore.save_local("faiss_index")
-        print(f"\n✅ FAISS index dosyaya kaydedildi")
+        print(f"\n✅ FAISS index saved to file")
         
-        # Kaydedilen index'i yükle
+        # Load saved index
         loaded_vectorstore = FAISS.load_local("faiss_index", embeddings)
         test_result = loaded_vectorstore.similarity_search("Python", k=1)
-        print(f"✅ Kaydedilen index başarıyla yüklendi")
+        print(f"✅ Saved index loaded successfully")
         
-        # Dosyaları temizle
+        # Clean up files
         import glob
         for file in glob.glob("faiss_index*"):
             os.remove(file)
             
     except Exception as e:
-        print(f"FAISS kaydetme/yükleme hatası: {e}")
+        print(f"FAISS save/load error: {e}")
 
 def semantic_search_example():
     """
-    Anlamsal arama örneği
+    Semantic search example
     """
-    print("\n=== ANLAMSAl ARAMA ÖRNEĞİ ===")
+    print("\n=== SEMANTIC SEARCH EXAMPLE ===")
     
-    # Daha detaylı örnek belgeler
+    # More detailed sample documents
     detailed_docs = [
         Document(
-            page_content="Python'da liste comprehension kullanarak listeler oluşturabilirsiniz. Örnek: [x*2 for x in range(10)]",
+            page_content="You can create lists in Python using list comprehension. Example: [x*2 for x in range(10)]",
             metadata={"category": "python", "type": "tutorial", "level": "intermediate"}
         ),
         Document(
-            page_content="React.js kullanarak modern web uygulamaları geliştirebilirsiniz. Component tabanlı yaklaşım sunar.",
+            page_content="You can develop modern web applications using React.js. It offers a component-based approach.",
             metadata={"category": "web", "type": "framework", "level": "intermediate"}
         ),
         Document(
-            page_content="Machine learning algoritmaları veri setlerinden otomatik olarak öğrenir ve tahminler yapar.",
+            page_content="Machine learning algorithms automatically learn from datasets and make predictions.",
             metadata={"category": "ai", "type": "concept", "level": "advanced"}
         ),
         Document(
-            page_content="SQL veri tabanlarından veri sorgulamak için kullanılan standart dildir. SELECT, INSERT, UPDATE komutları temeldir.",
+            page_content="SQL is the standard language for querying databases. SELECT, INSERT, UPDATE commands are basic.",
             metadata={"category": "database", "type": "language", "level": "beginner"}
         ),
         Document(
-            page_content="Docker konteyner teknolojisi ile uygulamalarınızı kolayca paketleyip dağıtabilirsiniz.",
+            page_content="Docker container technology allows you to easily package and distribute your applications.",
             metadata={"category": "devops", "type": "tool", "level": "intermediate"}
         )
     ]
     
-    # Vector store oluştur
+    # Create vector store
     embeddings = OpenAIEmbeddings()
     vectorstore = Chroma.from_documents(detailed_docs, embeddings)
     
-    # Anlamsal sorular
+    # Semantic queries
     semantic_queries = [
-        ("liste oluşturma", "Python'da veri yapıları"),
-        ("frontend geliştirme", "Web arayüz teknolojileri"),
-        ("otomatik öğrenme", "Yapay zeka algoritmaları"),
-        ("veri sorgulama", "Veritabanı işlemleri"),
-        ("uygulama dağıtımı", "DevOps araçları")
+        ("list creation", "Python data structures"),
+        ("frontend development", "Web interface technologies"),
+        ("automatic learning", "Artificial intelligence algorithms"),
+        ("data querying", "Database operations"),
+        ("application deployment", "DevOps tools")
     ]
     
     for query, description in semantic_queries:
         print(f"\n--- {description} ---")
-        print(f"Sorgu: '{query}'")
+        print(f"Query: '{query}'")
         
-        # Anlamsal arama yap
+        # Perform semantic search
         results = vectorstore.similarity_search_with_score(query, k=2)
         
         for i, (doc, score) in enumerate(results, 1):
-            print(f"\nSonuç {i} (Skor: {score:.4f}):")
-            print(f"Kategori: {doc.metadata.get('category', 'N/A')}")
-            print(f"Tip: {doc.metadata.get('type', 'N/A')}")
-            print(f"İçerik: {doc.page_content}")
+            print(f"\nResult {i} (Score: {score:.4f}):")
+            print(f"Category: {doc.metadata.get('category', 'N/A')}")
+            print(f"Type: {doc.metadata.get('type', 'N/A')}")
+            print(f"Content: {doc.page_content}")
 
 def retrieval_qa_example():
     """
-    Retrieval QA (Bilgi Getirme + Soru Cevaplama) örneği
-    Vector store ile QA chain birleştirme
+    Retrieval QA (Information Retrieval + Question Answering) example
+    Combining vector store with QA chain
     """
-    print("\n=== RETRİEVAL QA ÖRNEĞİ ===")
+    print("\n=== RETRIEVAL QA EXAMPLE ===")
     
-    # Belgeler ve vector store oluştur
+    # Create documents and vector store
     documents = create_sample_knowledge_base()
     embeddings = OpenAIEmbeddings()
     vectorstore = Chroma.from_documents(documents, embeddings)
     
-    # LLM oluştur
+    # Create LLM
     llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.3)
     
-    # Retrieval QA chain oluştur
+    # Create Retrieval QA chain
     qa_chain = RetrievalQA.from_chain_type(
         llm=llm,
-        chain_type="stuff",  # Belgeler birleştirilerek LLM'e verilir
+        chain_type="stuff",  # Documents are combined and given to LLM
         retriever=vectorstore.as_retriever(search_kwargs={"k": 2}),
         verbose=True,
         return_source_documents=True
     )
     
-    # Sorular sor
+    # Ask questions
     questions = [
-        "Python'un temel veri tipleri nelerdir?",
-        "Web geliştirmede hangi teknolojiler kullanılır?",
-        "Makine öğrenmesi türleri nelerdir?",
-        "Veri bilimi süreci nasıl işler?",
-        "Mobil uygulama geliştirmede hangi yaklaşımlar var?"
+        "What are Python's basic data types?",
+        "What technologies are used in web development?",
+        "What are the types of machine learning?",
+        "How does the data science process work?",
+        "What approaches are there for mobile app development?"
     ]
     
     for question in questions:
         print(f"\n{'='*50}")
-        print(f"SORU: {question}")
+        print(f"QUESTION: {question}")
         print('='*50)
         
         try:
-            # Soruyu yanıtla
+            # Answer the question
             result = qa_chain({"query": question})
             
-            print(f"\nCEVAP: {result['result']}")
+            print(f"\nANSWER: {result['result']}")
             
-            # Kaynak belgeleri göster
-            print(f"\nKAYNAK BELGELER:")
+            # Show source documents
+            print(f"\nSOURCE DOCUMENTS:")
             for i, doc in enumerate(result['source_documents'], 1):
-                print(f"\nKaynak {i}:")
-                print(f"Konu: {doc.metadata.get('topic', 'N/A')}")
-                print(f"Zorluk: {doc.metadata.get('difficulty', 'N/A')}")
-                print(f"İçerik özeti: {doc.page_content[:100]}...")
+                print(f"\nSource {i}:")
+                print(f"Topic: {doc.metadata.get('topic', 'N/A')}")
+                print(f"Difficulty: {doc.metadata.get('difficulty', 'N/A')}")
+                print(f"Content summary: {doc.page_content[:100]}...")
                 
         except Exception as e:
-            print(f"Hata: {e}")
+            print(f"Error: {e}")
 
 def vector_store_filtering_example():
     """
-    Vector store'da filtreleme örneği
-    Metadata tabanlı filtreleme
+    Vector store filtering example
+    Metadata-based filtering
     """
-    print("\n=== VECTOR STORE FİLTRELEME ===")
+    print("\n=== VECTOR STORE FILTERING ===")
     
-    # Belgeler oluştur
+    # Create documents
     documents = create_sample_knowledge_base()
     embeddings = OpenAIEmbeddings()
     vectorstore = Chroma.from_documents(documents, embeddings)
     
-    # Farklı filtreler uygula
+    # Apply different filters
     filters_and_queries = [
         {
             "filter": {"difficulty": "beginner"},
-            "query": "programlama öğrenmek istiyorum",
-            "description": "Sadece başlangıç seviyesi"
+            "query": "I want to learn programming",
+            "description": "Beginner level only"
         },
         {
             "filter": {"difficulty": "intermediate"},
-            "query": "web teknolojileri",
-            "description": "Orta seviye konular"
+            "query": "web technologies",
+            "description": "Intermediate level topics"
         },
         {
             "filter": {"topic": "ai_ml"},
-            "query": "öğrenme algoritmaları",
-            "description": "Sadece AI/ML konuları"
+            "query": "learning algorithms",
+            "description": "AI/ML topics only"
         }
     ]
     
     for filter_config in filters_and_queries:
         print(f"\n--- {filter_config['description']} ---")
-        print(f"Filtre: {filter_config['filter']}")
-        print(f"Sorgu: '{filter_config['query']}'")
+        print(f"Filter: {filter_config['filter']}")
+        print(f"Query: '{filter_config['query']}'")
         
-        # Filtrelenmiş arama
+        # Filtered search
         results = vectorstore.similarity_search(
             filter_config['query'],
             k=3,
             filter=filter_config['filter']
         )
         
-        print(f"Bulunan sonuç sayısı: {len(results)}")
+        print(f"Found results: {len(results)}")
         for i, doc in enumerate(results, 1):
-            print(f"\nSonuç {i}:")
-            print(f"Konu: {doc.metadata.get('topic', 'N/A')}")
-            print(f"Zorluk: {doc.metadata.get('difficulty', 'N/A')}")
-            print(f"İçerik: {doc.page_content[:100]}...")
+            print(f"\nResult {i}:")
+            print(f"Topic: {doc.metadata.get('topic', 'N/A')}")
+            print(f"Difficulty: {doc.metadata.get('difficulty', 'N/A')}")
+            print(f"Content: {doc.page_content[:100]}...")
 
 def main():
     """
-    Ana fonksiyon - tüm vector store ve embedding örneklerini çalıştır
+    Main function - run all vector store and embedding examples
     """
-    print("LangChain Vector Stores ve Embeddings Örnekleri Başlıyor...\n")
+    print("LangChain Vector Stores and Embeddings Examples Starting...\n")
     
     if not os.getenv("OPENAI_API_KEY"):
-        print("HATA: OPENAI_API_KEY environment variable bulunamadı!")
+        print("ERROR: OPENAI_API_KEY environment variable not found!")
         return
     
     try:
-        # Embedding örnekleri
+        # Embedding examples
         embedding_basics_example()
         chroma_vector_store_example()
         faiss_vector_store_example()
@@ -446,10 +446,10 @@ def main():
         retrieval_qa_example()
         vector_store_filtering_example()
         
-        print("\n✅ Tüm vector store ve embedding örnekleri başarıyla tamamlandı!")
+        print("\n✅ All vector store and embedding examples completed successfully!")
         
     except Exception as e:
-        print(f"❌ Hata oluştu: {e}")
+        print(f"❌ Error occurred: {e}")
 
 if __name__ == "__main__":
     main()
